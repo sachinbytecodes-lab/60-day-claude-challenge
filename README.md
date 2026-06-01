@@ -18,5 +18,12 @@ I am Sachin Singh, a Software Developer and Architect of intelligent systems, ma
 
 ### Day 1: June 01, 2026
 * **Focus:** Establishing the baseline AI Personality Profile, setting up the repository, and defining my "Neural Architect" persona.
-* **Screenshot:** *(Upload your Day 1 screenshot to the repo and link it here, e.g., `![Day 1 Workflow](path/to/image.png)`)*
+* **Screenshots:**
+
+![Day 1 Profile](DAY%201.png)
+
+![Day 1 Image](DAY%201.1.png)
+
+![Day 1 Extra](DAY%201.2.png)
+
 
