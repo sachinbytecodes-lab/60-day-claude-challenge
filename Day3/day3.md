@@ -85,14 +85,19 @@ The same question can generate **significantly different outputs** depending on 
 
 ---
 
-## 📸 Screenshots
+# Screenshots
 
-> Add the screenshots captured during the exercise:
+## Role-Based Prompting Overview
+![Role-Based Prompting](Role%20-Based%20Prompting.png)
 
-1. 🖼️ Role-Based Prompting infographic
-2. 🖼️ Generic prompt response
-3. 🖼️ Startup Founder persona response
-4. 🖼️ Senior AI Developer persona response
+## No Role Prompt Output
+![No Role](NO%20Role.png)
+
+## Founder Persona Output
+![Founder Persona](Founder.png)
+
+## Developer Persona Output
+![Developer Persona](Developer.png)
 
 ---
 
