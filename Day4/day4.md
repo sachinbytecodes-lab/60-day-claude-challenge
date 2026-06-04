@@ -7,9 +7,7 @@
 [![Topic](https://img.shields.io/badge/Topic-Chain--of--Thought-00D4A1?style=for-the-badge&logo=openai&logoColor=white)]()
 [![Tool](https://img.shields.io/badge/Tool-Claude%20AI-CC785C?style=for-the-badge&logo=anthropic&logoColor=white)](https://claude.ai)
 
-> **"Make AI think before it speaks — and watch the quality skyrocket."**
-
-[📄 View Beautiful HTML Version](./day4.html) &nbsp;|&nbsp; [🔗 Challenge Link](https://abtalks.in/challenge/4) &nbsp;|&nbsp; [⭐ Star this Repo](#)
+> **"Make AI think before it speaks — and watch the quality skyrocket."*
 
 </div>
 
@@ -40,29 +38,6 @@
 
 ---
 
-## 📸 Screenshots
-
-### Challenge Task Page
-
-| Task Steps | CoT Prompt (Q1 & Q2) |
-|:----------:|:--------------------:|
-| ![Task Steps](./screenshots/task1.png) | ![CoT Prompt Q1 Q2](./screenshots/task2.png) |
-
-| CoT Prompt (Q3 & Q4) | Output Specification |
-|:--------------------:|:--------------------:|
-| ![CoT Prompt Q3 Q4](./screenshots/task3.png) | ![Output Spec](./screenshots/task4.png) |
-
-### Generated Roadmap Output
-
-| Roadmap Part 1 | Roadmap Part 2 |
-|:--------------:|:--------------:|
-| ![Roadmap Output 1](./screenshots/roadmap1.png) | ![Roadmap Output 2](./screenshots/roadmap2.png) |
-
-### Claude Conversation
-
-![Claude Conversation](./screenshots/claude.png)
-
----
 
 ## 📋 The Chain-of-Thought Prompt Template
 
@@ -240,23 +215,6 @@ This same pattern — **ask questions → think step by step → structured outp
 >
 > Despite already knowing Python, the gap between *"intermediate"* and *"advanced"* Pandas/NumPy is exactly where most junior candidates get filtered out in screening rounds. Month 1 laser-focus on SQL + Pandas will have the **highest impact** on landing a role by September 2026.
 
----
-
-## 📁 Folder Structure
-
-```
-Day4/
-├── day4.md                  ← this file
-├── day4.html                ← beautiful styled HTML version
-└── screenshots/
-    ├── task1.png            ← challenge task steps
-    ├── task2.png            ← CoT prompt Q1 & Q2
-    ├── task3.png            ← CoT prompt Q3 & Q4
-    ├── task4.png            ← output specification
-    ├── roadmap1.png         ← generated roadmap part 1
-    ├── roadmap2.png         ← generated roadmap part 2
-    └── claude.png           ← Claude conversation view
-```
 
 ---
 
