@@ -8,7 +8,7 @@
 
 | Roadmap 1 — Web Development (Generic) | Roadmap 2 — Python Engineering (Personalized) |
 |---|---|
-| ![Roadmap 1](screenshots/roadmap1_web_dev.png) | ![Roadmap 2](screenshots/roadmap2_python.png) |
+| ![Roadmap 1](roadmap1_web_dev.png) | ![Roadmap 2](roadmap2_python.png) |
 | Topic picker UI, no user context | "Intermediate Python · 4 hrs/day · Video + project-based learning" |
 
 ---
