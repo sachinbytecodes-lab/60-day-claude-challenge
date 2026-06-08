@@ -11,9 +11,9 @@ The dashboard tracks multi-pollutant air quality parameters (AQI, PM2.5, PM10) a
 
 | | |
 |---|---|
-| **Overview Dashboard** <br> ![Overview](./Screenshot%202026-06-08%20at%204.37.50%E2%80%AFPM.jpg) | **Pollutant Filtered Charts** <br> ![Charts](./Screenshot%202026-06-08%20at%204.38.48%E2%80%AFPM.jpg) |
-| **All Cities Metrics** <br> ![City Cards](./Screenshot%202026-06-08%20at%204.39.14%E2%80%AFPM.jpg) | **Lucknow Health Impact Matrix** <br> ![Health Impact](./Screenshot%202026-06-08%20at%204.40.51%E2%80%AFPM.jpg) |
-| **Environmental Score Breakdown** <br> ![Report Card](./Screenshot%202026-06-08%20at%204.42.25%E2%80%AFPM.jpg) | **Personalized Recommendations** <br> ![Recommendations](./Screenshot%202026-06-08%20at%204.43.04%E2%80%AFPM.jpg) |
+| **Overview Dashboard** <br> ![Overview](./ss1.png) | **Pollutant Filtered Charts** <br> ![Charts](./ss2.png) |
+| **All Cities Metrics** <br> ![City Cards](./ss3.png) | **Lucknow Health Impact Matrix** <br> ![Health Impact](./ss4.png) |
+| **Environmental Score Breakdown** <br> ![Report Card](./ss5.png) | **Personalized Recommendations** <br> ![Recommendations](./ss6.png) |
 
 ---
 
