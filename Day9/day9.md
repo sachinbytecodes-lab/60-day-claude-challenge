@@ -60,19 +60,19 @@ Claude automatically expanded the scope from a nutrition logger to a nutrition i
 ## Screenshots
 
 ### MVP Dashboard
-![MVP Dashboard](./screenshots/mvp-dashboard.png)
+![MVP Dashboard](./ss1.jpg)
 
 ### MVP Nutrient Analysis
-![MVP Nutrient Analysis](./screenshots/mvp-nutrients.png)
+![MVP Nutrient Analysis](./ss3.jpg)
 
 ### Pro Dashboard
-![Pro Dashboard](./screenshots/pro-dashboard.png)
+![Pro Dashboard](./ss4.jpg)
 
 ### Clinical Disclaimer
-![Clinical Disclaimer](./screenshots/clinical-disclaimer.png)
+![Clinical Disclaimer](./ss2.jpg)
 
 ### Pro Nutrient Analytics
-![Pro Nutrient Analytics](./screenshots/pro-nutrients.png)
+![Pro Nutrient Analytics](./ss5.jpg)
 
 ---
 
