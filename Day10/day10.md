@@ -50,19 +50,19 @@ This project is a fully responsive portfolio website built to establish a profes
 
 | Home Page | About Section |
 |------------|------------|
-| <img src="screenshots/home-page.jpg" width="500"> | <img src="screenshots/about-section.jpg" width="500"> |
+| <img src="home-page.jpg" width="500"> | <img src="about-section.jpg" width="500"> |
 
 | Skills Section | Full Tech Stack |
 |------------|------------|
-| <img src="screenshots/skills-section.jpg" width="500"> | <img src="screenshots/tech-stack.jpg" width="500"> |
+| <img src="skills-section.jpg" width="500"> | <img src="tech-stack.jpg" width="500"> |
 
 | Projects Section | Achievements Section |
 |------------|------------|
-| <img src="screenshots/projects-section.jpg" width="500"> | <img src="screenshots/achievements-section.jpg" width="500"> |
+| <img src="projects-section.jpg" width="500"> | <img src="achievements-section.jpg" width="500"> |
 
 | Contact Section |
 |------------|
-| <img src="screenshots/contact-section.jpg" width="700"> |
+| <img src="contact-section.jpg" width="1000"> |
 
 
 
