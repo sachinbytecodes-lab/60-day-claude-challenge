@@ -390,18 +390,38 @@ Insights become more useful when transformed into concrete next steps.
 * Improved career readiness
 
 ---
+## 📸 Screenshots
 
-# 📸 Screenshots
-
-Add screenshots inside the `/screenshots` folder.
-
-| Screenshot              | Description                 |
-| ----------------------- | --------------------------- |
-| risk-dashboard.png      | Complete dashboard          |
-| red-flags.png           | Red flag severity section   |
-| breakdown.png           | Category-wise risk analysis |
-| interview-questions.png | Generated questions         |
-| linkedin-banner.png     | Social sharing banner       |
+<table>
+  <tr>
+    <td align="center">
+      <a href="./red-flags.png">
+        <img src="./red-flags.png" width="500">
+      </a><br>
+      <b>Risk Dashboard</b>
+    </td>
+    <td align="center">
+      <a href="./breakdown.png">
+        <img src="./breakdown.png" width="500">
+      </a><br>
+      <b>Risk Breakdown</b>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <a href="./interview-questions.png">
+        <img src="./interview-questions.png" width="500">
+      </a><br>
+      <b>Interview Questions</b>
+    </td>
+    <td align="center">
+      <a href="./linkedin-banner.jpg">
+        <img src="./linkedin-banner.jpg" width="500">
+      </a><br>
+      <b>LinkedIn Banner</b>
+    </td>
+  </tr>
+</table>
 
 ---
 
