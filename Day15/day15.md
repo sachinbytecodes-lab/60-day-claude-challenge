@@ -44,37 +44,26 @@ This repository documents a detailed Vedic astrology birth chart analysis conduc
 
 ## Screenshots
 
-> Upload your screenshots to the `/screenshots` folder and update the paths below.
 
 ### Birth Chart Summary
-```
-screenshots/birth-chart-summary.png
-```
-![Birth Chart Summary](screenshots/birth-chart-summary.png)
+
+![Birth Chart Summary](birth-chart-summary.png)
 
 ### LinkedIn Astrology Card
-```
-screenshots/linkedin-card.png
-```
-![LinkedIn Astrology Card](screenshots/linkedin-card.png)
+
+![LinkedIn Astrology Card](linkedin-card.png)
 
 ### Planetary Positions Table
-```
-screenshots/planetary-positions.png
-```
-![Planetary Positions](screenshots/planetary-positions.png)
+
+![Planetary Positions](planetary-position.png)
 
 ### 5-Year Forecast Table
-```
-screenshots/five-year-forecast.png
-```
-![5-Year Forecast](screenshots/five-year-forecast.png)
+
+![5-Year Forecast](five-year-forecast.png)
 
 ### Dasha Analysis
-```
-screenshots/dasha-analysis.png
-```
-![Dasha Analysis](screenshots/dasha-analysis.png)
+
+![Dasha Analysis](dasha-analysis.png)
 
 
 ---
