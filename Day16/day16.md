@@ -49,7 +49,7 @@ The generated report included:
 
 This dashboard provides a quick overview of HCL Technologies' key metrics, including market capitalization, valuation ratios, dividend yield, ROCE, and ROE.
 
-![HCL Snapshot](./screenshots/hcl-snapshot.png)
+![HCL Snapshot](hcl-snapshot.png)
 
 ---
 
@@ -57,7 +57,7 @@ This dashboard provides a quick overview of HCL Technologies' key metrics, inclu
 
 The generated report summarizes HCL Technologies' business profile, global presence, revenue performance, profitability metrics, and management guidance for FY27.
 
-![Company Overview & Financial Highlights](./screenshots/company-overview-financials.png)
+![Company Overview & Financial Highlights](company-overview-financials.png)
 
 ---
 
@@ -65,7 +65,7 @@ The generated report summarizes HCL Technologies' business profile, global prese
 
 The custom skill generated a revenue trend chart along with an investment thesis highlighting HCL Technologies' strong fundamentals, dividend policy, and return ratios.
 
-![Revenue Trend Analysis](./screenshots/revenue-trend-analysis.png)
+![Revenue Trend Analysis](revenue-trend-analysis.png)
 
 ---
 
@@ -73,7 +73,7 @@ The custom skill generated a revenue trend chart along with an investment thesis
 
 The report further analyzed key aspects such as annual performance, exceptional charges, growth outlook, promoter shareholding trends, and valuation considerations.
 
-![Detailed Fundamental Analysis](./screenshots/detailed-analysis.png)
+![Detailed Fundamental Analysis](detailed-analysis.png)
 
 ---
 
