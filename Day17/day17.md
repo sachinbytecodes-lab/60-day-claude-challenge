@@ -202,16 +202,16 @@ SVG enables lightweight, scalable, and responsive visualizations without externa
 ## 📸 Output Screenshots
 
 ### Dashboard Overview
-![Dashboard Overview](screenshots/dashboard-overview.png)
+![Dashboard Overview](dashboard-overview.png)
 
 ### Fuel Cost Comparison
-![Fuel Comparison](screenshots/fuel-comparison.png)
+![Fuel Comparison](fuel-comparison.png)
 
 ### E85 Economics Analysis
-![E85 Analysis](screenshots/e85-analysis.png)
+![E85 Analysis](e85-analysis.png)
 
 ### Fuel Profile Cards
-![Fuel Profiles](screenshots/fuel-profiles.png)
+![Fuel Profiles](fuel-profiles.png)
 
 ---
 
