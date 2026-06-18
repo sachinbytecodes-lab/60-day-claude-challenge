@@ -150,7 +150,7 @@ Displays:
 - Growth Indicators
 - Summary Section
 
-![Dashboard Overview](screenshots/dashboard-overview.png)
+![Dashboard Overview](dashboard-overview.png)
 
 ---
 
@@ -158,7 +158,7 @@ Displays:
 
 Highlights major discussion outcomes and business insights.
 
-![Key Takeaways](screenshots/key-takeaways.png)
+![Key Takeaways](key-takeaways.png)
 
 ---
 
@@ -166,7 +166,7 @@ Highlights major discussion outcomes and business insights.
 
 Interactive task tracking table with ownership and priorities.
 
-![Action Items](screenshots/action-items.png)
+![Action Items](action-items.png)
 
 ---
 
@@ -174,7 +174,7 @@ Interactive task tracking table with ownership and priorities.
 
 Lists unresolved decisions and pending discussions.
 
-![Open Questions](screenshots/open-questions.png)
+![Open Questions](open-questions.png)
 
 ---
 
@@ -182,7 +182,7 @@ Lists unresolved decisions and pending discussions.
 
 Displays operational and business risks affecting execution.
 
-![Risks & Blockers](screenshots/risks-blockers.png)
+![Risks & Blockers](risks-blockers.png)
 
 ---
 
@@ -190,7 +190,7 @@ Displays operational and business risks affecting execution.
 
 Identifies conflicts across priorities, resources, and timelines.
 
-![Conflicts](screenshots/conflicts.png)
+![Conflicts](conflicts.png)
 
 ---
 
@@ -198,15 +198,7 @@ Identifies conflicts across priorities, resources, and timelines.
 
 Provides speaker-wise breakdown of discussions and decisions.
 
-![Speaker Summary](screenshots/speaker-summary.png)
-
----
-
-## Skill Creation Process
-
-Claude Custom Skill setup used during development.
-
-![Skill Setup](screenshots/skill-setup.png)
+![Speaker Summary](speaker-summary.png)
 
 ---
 
