@@ -150,13 +150,17 @@ Historical football statistics require deeper analysis beyond mainstream footbal
 ## 📸 Screenshots
 
 ### Home Dashboard
-![Home Dashboard](./screenshots/home-dashboard.png)
+![Home Dashboard](home-dashboard.png)
+
+---
 
 ### World Cup Prediction Report
-![Prediction Report](./screenshots/world-cup-prediction.png)
+![Prediction Report](world-cup-prediction.png)
+
+---
 
 ### Football Awareness Score
-![Football Awareness Score](./screenshots/football-awareness-score.png)
+![Football Awareness Score](football-awareness-score.png)
 
 ---
 
