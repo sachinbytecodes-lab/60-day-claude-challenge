@@ -97,7 +97,7 @@ Create a complete HTML application that:
 
 ### Game Setup Screen
 
-![Game Setup](screenshots/game-setup.png)
+![Game Setup](game-setup.png)
 
 *Photo captured successfully and difficulty selection screen.*
 
@@ -105,7 +105,7 @@ Create a complete HTML application that:
 
 ### Puzzle Completion Screen
 
-![Puzzle Solved](screenshots/puzzle-solved.png)
+![Puzzle Solved](puzzle-solved.png)
 
 *Victory popup displaying completion time, moves, and leaderboard.*
 
