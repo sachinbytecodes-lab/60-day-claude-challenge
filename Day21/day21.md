@@ -347,39 +347,39 @@ Potential Improvement:
 
 ## Dashboard Overview
 
-![Dashboard Overview](screenshots/dashboard-overview.png)
+![Dashboard Overview](dashboard-overview.png)
 
 ## Exposure Heatmap
 
-![Exposure Heatmap](screenshots/exposure-heatmap.png)
+![Exposure Heatmap](exposure-heatmap.png)
 
 ## Company Exposure Ranking
 
-![Company Exposure Ranking](screenshots/company-ranking.png)
+![Company Exposure Ranking](company-ranking.png)
 
 ## Data Collection Matrix
 
-![Data Collection Matrix](screenshots/data-collection-matrix.png)
+![Data Collection Matrix](data-collection-matrix.png)
 
 ## Risk Radar
 
-![Risk Radar](screenshots/risk-radar.png)
+![Risk Radar](risk-radar.png)
 
 ## Digital Twin Profile
 
-![Digital Twin Profile](screenshots/digital-twin-profile.png)
+![Digital Twin Profile](digital-twin-profile.png)
 
 ## WOW Insights
 
-![WOW Insights](screenshots/wow-insights.png)
+![WOW Insights](wow-insights.png)
 
 ## Privacy Improvement Simulator
 
-![Privacy Improvement Simulator](screenshots/privacy-simulator.png)
+![Privacy Improvement Simulator](privacy-simulator.png)
 
 ## Final Verdict
 
-![Final Verdict](screenshots/final-verdict.png)
+![Final Verdict](final-verdict.png)
 
 ---
 
