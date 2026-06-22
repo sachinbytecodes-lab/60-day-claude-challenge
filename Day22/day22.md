@@ -52,15 +52,8 @@ Target Audience:
 
 ### Validation Dashboard
 
-![Dashboard](Screenshots/validation-dashboard.png)
+![Dashboard](validation-dashboard.png)
 
-### Report Overview
-
-![Report](Screenshots/report-summary.png)
-
-### Key Insights
-
-![Insights](Screenshots/key-insights.png)
 
 ---
 
@@ -288,7 +281,7 @@ Recommendation with strong market potential, provided early customer validation 
 The complete startup validation report is available in:
 
 ```bash
-Startup_Validation_Report.pdf
+Startup_Validation_Report_Kiosk.pdf
 ```
 
 ---
