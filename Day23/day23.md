@@ -294,55 +294,55 @@ Recommendation:
 
 ## Executive Summary
 
-![Executive Summary](screenshots/executive-summary.png)
+![Executive Summary](executive-summary.png)
 
 ## Ideal Customer Profile (ICP)
 
-![ICP](screenshots/icp.png)
+![ICP](icp.png)
 
 ## Buyer Persona
 
-![Buyer Persona](screenshots/buyer-persona.png)
+![Buyer Persona](buyer-persona.png)
 
 ## Top Customer Pain Points
 
-![Customer Pain Points](screenshots/pain-points.png)
+![Customer Pain Points](pain-points.png)
 
 ## Customer Journey Map
 
-![Customer Journey](screenshots/customer-journey.png)
+![Customer Journey](customer-journey.png)
 
 ## Key Objections & Buying Triggers
 
-![Buying Triggers](screenshots/buying-triggers.png)
+![Buying Triggers](buying-triggers.png)
 
 ## MVP Recommendation
 
-![MVP Recommendation](screenshots/mvp-recommendation.png)
+![MVP Recommendation](mvp-recommendation.png)
 
 ## MoSCoW Prioritization
 
-![MoSCoW](screenshots/moscow-prioritization.png)
+![MoSCoW](moscow-prioritization.png)
 
 ## Pricing Hypothesis
 
-![Pricing](screenshots/pricing-hypothesis.png)
+![Pricing](pricing-hypothesis.png)
 
 ## Top Risks
 
-![Risks](screenshots/top-risks.png)
+![Risks](top-risks.png)
 
 ## 30-Day MVP Action Plan
 
-![30 Day Plan](screenshots/30-day-plan.png)
+![30 Day Plan](30-day-plan.png)
 
 ## Founder Action Sheet
 
-![Founder Action Sheet](screenshots/founder-action-sheet.png)
+![Founder Action Sheet](founder-action-sheet.png)
 
 ## Final Scores & Verdict
 
-![Final Verdict](screenshots/final-verdict.png)
+![Final Verdict](final-verdict.png)
 
 ---
 
