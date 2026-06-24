@@ -358,22 +358,22 @@ Channels:
 # 📸 Project Screenshots
 
 ## Cover Page
-![Cover Page](screenshots/title-page.png)
+![Cover Page](title-page.png)
 
 ## Business Model Canvas
-![Business Model Canvas](screenshots/business-model-canvas.png)
+![Business Model Canvas](business-model-canvas.png)
 
 ## Revenue Strategy
-![Revenue Strategy](screenshots/revenue-strategy.png)
+![Revenue Strategy](revenue-strategy.png)
 
 ## GTM Strategy
-![GTM Strategy](screenshots/gtm-strategy.png)
+![GTM Strategy](gtm-strategy.png)
 
 ## Investment Scorecard
-![Investment Scorecard](screenshots/investment-scorecard.png)
+![Investment Scorecard](investment-scorecard.png)
 
 ## Final Verdict
-![Final Verdict](screenshots/final-verdict.png)
+![Final Verdict](final-verdict.png)
 
 ---
 
