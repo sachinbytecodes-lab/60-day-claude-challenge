@@ -158,19 +158,19 @@ The simulator automatically generates a professional PDF report containing:
 
 ## 🚀 Startup Pitch
 
-![Startup Pitch](./screenshots/startup-pitch.png)
+![Startup Pitch](startup-pitch.png)
 
 ---
 
 ## 📊 Pitch Scorecard
 
-![Pitch Scorecard](./screenshots/pitch-scorecard.png)
+![Pitch Scorecard](pitch-scorecard.png)
 
 ---
 
 ## 🦈 Final Verdict
 
-![Final Verdict](./screenshots/final-verdict.png)
+![Final Verdict](final-verdict.png)
 
 ---
 # 🎯 Key Learnings
