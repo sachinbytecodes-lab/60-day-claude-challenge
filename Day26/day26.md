@@ -160,31 +160,31 @@ Approve Pend     Deny
 
 ## 🏠 Home Screen
 
-<img src="screenshots/home.png" width="100%">
+<img src="home.png" width="100%">
 
 ---
 
 ## 🩺 Medical Necessity Evaluation
 
-<img src="screenshots/medical-necessity.png" width="100%">
+<img src="medical-necessity.png" width="100%">
 
 ---
 
 ## 📁 Required Documents Collection
 
-<img src="screenshots/documents.png" width="100%">
+<img src="documents.png" width="100%">
 
 ---
 
 ## 🏦 Insurance Review
 
-<img src="screenshots/payer-review.png" width="100%">
+<img src="payer-review.png" width="100%">
 
 ---
 
 ## ✅ Final Approved Case
 
-<img src="screenshots/approved.png" width="100%">
+<img src="approved.png" width="100%">
 
 ---
 
