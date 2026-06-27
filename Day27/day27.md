@@ -183,85 +183,29 @@ After finishing the journey, users can restart and explore different dialogue pa
 
 ---
 
-# 📸 Screenshots
+## 📸 Project Gallery
 
-## Scene 1
+<p align="center">
+  <img src="scene1.png" width="420" alt="Scene 1"/>
+  <img src="scene2.png" width="420" alt="Scene 2"/>
+</p>
 
-> Add screenshot here
+<p align="center">
+  <img src="scene3.png" width="420" alt="Scene 3"/>
+  <img src="scene4.png" width="420" alt="Scene 4"/>
+</p>
 
-```
-screenshots/scene1.png
-```
+<p align="center">
+  <img src="scene5.png" width="420" alt="Scene 5"/>
+  <img src="scene6.png" width="420" alt="Scene 6"/>
+</p>
 
----
+<p align="center">
+  <img src="scene7.png" width="420" alt="Scene 7"/>
+  <img src="scene8.png" width="420" alt="Scene 8"/>
+</p>
 
-## Scene 2
 
-> Add screenshot here
-
-```
-screenshots/scene2.png
-```
-
----
-
-## Scene 3
-
-> Add screenshot here
-
-```
-screenshots/scene3.png
-```
-
----
-
-## Scene 4
-
-> Add screenshot here
-
-```
-screenshots/scene4.png
-```
-
----
-
-## Scene 5
-
-> Add screenshot here
-
-```
-screenshots/scene5.png
-```
-
----
-
-## Scene 6
-
-> Add screenshot here
-
-```
-screenshots/scene6.png
-```
-
----
-
-## Scene 7
-
-> Add screenshot here
-
-```
-screenshots/scene7.png
-```
-
----
-
-## Scene 8
-
-> Add screenshot here
-
-```
-screenshots/scene8.png
-```
 
 ---
 
