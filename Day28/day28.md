@@ -169,20 +169,20 @@ Based on workflow completion the simulator decides:
 
 ## 1️⃣ Admission Setup
 
-![Setup](screenshots/setup.png)
+![Setup](setup.png)
 
 ---
 
 ## 2️⃣ Initial Readiness Analysis & Workflow Actions
 
-![Analysis](screenshots/initial-analysis.png)
+![Analysis](initial-analysis.png)
 
 
 ---
 
-## 4️⃣ Final Admission Decision
+## 3️⃣ Final Admission Decision
 
-![Decision](screenshots/final-decision.png)
+![Decision](final-decision.png)
 
 ---
 
