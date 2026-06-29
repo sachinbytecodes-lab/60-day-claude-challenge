@@ -186,25 +186,6 @@ No Tailwind CSS.
 
 Runs completely offline by opening a single HTML file.
 
----
-
-# 📸 Application Preview
-
-| Welcome | Company |
-|---------|---------|
-| ![](screenshots/home.png) | ![](screenshots/company.png) |
-
-| Crisis | War Room |
-|---------|-----------|
-| ![](screenshots/crisis.png) | ![](screenshots/war-room.png) |
-
-| Negotiation | CEO Boardroom |
-|-------------|---------------|
-| ![](screenshots/negotiation.png) | ![](screenshots/ceo-boardroom.png) |
-
-| AI Strategy | Final Results |
-|-------------|---------------|
-| ![](screenshots/ai-strategy.png) | ![](screenshots/results.png) |
 
 ---
 
