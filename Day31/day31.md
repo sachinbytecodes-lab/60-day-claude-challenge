@@ -191,19 +191,19 @@ The application displays:
 
 ## 🏠 Start Screen
 
-![Start Screen](images/start-screen.png)
+![Start Screen](start-screen.png)
 
 ---
 
 ## 📊 Live Dashboard
 
-![Dashboard](images/dashboard.png)
+![Dashboard](dashboard.png)
 
 ---
 
 ## 🏁 Final Performance
 
-![Final Result](images/result.png)
+![Final Result](result.png)
 
 ---
 
