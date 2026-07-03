@@ -176,7 +176,7 @@ After completing the lesson users learn how to:
 
 > Guided lesson introduction
 
-<img src="screenshots/01-home.png" width="900">
+<img src="01-home.png" width="900">
 
 ---
 
@@ -184,7 +184,7 @@ After completing the lesson users learn how to:
 
 > Analyze exaggerated headlines
 
-<img src="screenshots/02-headline.png" width="900">
+<img src="02-headline.png" width="900">
 
 ---
 
@@ -192,7 +192,7 @@ After completing the lesson users learn how to:
 
 > Reveal misleading wording and fair rewrite
 
-<img src="screenshots/03-analysis.png" width="900">
+<img src="03-analysis.png" width="900">
 
 ---
 
@@ -200,7 +200,7 @@ After completing the lesson users learn how to:
 
 > Understand emotional manipulation
 
-<img src="screenshots/04-emotion.png" width="900">
+<img src="04-emotion.png" width="900">
 
 ---
 
@@ -208,7 +208,7 @@ After completing the lesson users learn how to:
 
 > Discover manipulation techniques
 
-<img src="screenshots/05-emotion-analysis.png" width="900">
+<img src="05-emotion-analysis.png" width="900">
 
 ---
 
@@ -216,7 +216,7 @@ After completing the lesson users learn how to:
 
 > Complete learning summary
 
-<img src="screenshots/06-dashboard.png" width="900">
+<img src="06-dashboard.png" width="900">
 
 ---
 
