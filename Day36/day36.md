@@ -187,13 +187,6 @@ The application explores five thinking styles:
 ---
 # 📸 Screenshots
 
-## 🏠 Home Screen
-
-<p align="center">
-  <img src="home.png" alt="Home Screen" width="900">
-</p>
-
----
 
 ## 🌿 Calm Theme
 
