@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PathFinder — Career Direction for Early-Career Grads</title>
+<style>
+  :root{
+    --bg:#0b0d12;
+    --bg-alt:#12151c;
+    --panel:#161a22;
+    --panel-2:#1c212b;
+    --border:#262c38;
+    --text:#e9ecf3;
+    --text-dim:#9aa3b5;
+    --accent:#ff6a3d;
+    --accent-2:#ffb03d;
+    --accent-soft:rgba(255,106,61,0.12);
+    --good:#3ddc97;
+    --radius:14px;
+    --shadow:0 10px 40px rgba(0,0,0,0.45);
+    --mono:'SF Mono',Consolas,Monaco,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Roboto,sans-serif;
+    background:radial-gradient(1200px 800px at 80% -10%, #1c1420 0%, var(--bg) 55%),var(--bg);
+    color:var(--text);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+  .app{
+    max-width:920px;
+    margin:0 auto;
+    width:100%;
+    padding:28px 20px 60px;
+    flex:1;
+  }
+  header{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:22px;
+  }
+  .logo{
+    width:44px;height:44px;border-radius:12px;
+    background:linear-gradient(135deg,var(--accent),var(--accent-2));
+    display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:18px;color:#0b0d12;
+    box-shadow:0 6px 20px rgba(255,106,61,0.35);
+    flex-shrink:0;
+  }
+  .title h1{font-size:19px;font-weight:700;letter-spacing:-0.01em;}
+  .title p{font-size:12.5px;color:var(--text-dim);margin-top:2px;}
+  .status-pill{
+    margin-left:auto;
+    font-size:11px;
+    padding:5px 10px;
+    border-radius:20px;
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    display:flex;align-items:center;gap:6px;
+    white-space:nowrap;
+  }
+  .status-dot{width:6px;height:6px;border-radius:50%;background:var(--text-dim);}
+  .status-dot.ready{background:var(--good);box-shadow:0 0 8px var(--good);}
+
+  .key-bar{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:14px 16px;
+    margin-bottom:18px;
+    display:none;
+    gap:10px;
+    align-items:center;
+  }
+  .key-bar.show{display:flex;flex-wrap:wrap;}
+  .key-bar input{
+    flex:1;min-width:220px;
+    background:var(--bg-alt);
+    border:1px solid var(--border);
+    color:var(--text);
+    padding:9px 12px;
+    border-radius:8px;
+    font-size:13px;
+    font-family:var(--mono);
+  }
+  .key-bar input:focus{outline:none;border-color:var(--accent);}
+  .key-bar button{
+    background:var(--accent);
+    color:#0b0d12;
+    border:none;
+    font-weight:700;
+    padding:9px 16px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:13px;
+  }
+  .key-bar span{font-size:12px;color:var(--text-dim);width:100%;}
+
+  .chat-shell{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    display:flex;
+    flex-direction:column;
+    min-height:520px;
+    overflow:hidden;
+  }
+  .chat-log{
+    flex:1;
+    padding:22px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+    overflow-y:auto;
+    max-height:60vh;
+  }
+  .msg{
+    display:flex;
+    gap:10px;
+    max-width:88%;
+    animation:rise .35s ease both;
+  }
+  @keyframes rise{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+  .msg.user{align-self:flex-end;flex-direction:row-reverse;}
+  .avatar{
+    width:30px;height:30px;border-radius:8px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+    font-size:13px;font-weight:700;
+  }
+  .msg.assistant .avatar{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#0b0d12;}
+  .msg.user .avatar{background:var(--panel-2);border:1px solid var(--border);color:var(--text-dim);}
+  .bubble{
+    background:var(--panel-2);
+    border:1px solid var(--border);
+    padding:12px 14px;
+    border-radius:12px;
+    font-size:14.5px;
+    line-height:1.55;
+    white-space:pre-wrap;
+  }
+  .msg.user .bubble{background:var(--accent-soft);border-color:rgba(255,106,61,0.3);}
+  .msg.assistant .bubble strong{color:var(--accent-2);}
+
+  .bubble .path-card{
+    background:var(--bg-alt);
+    border:1px solid var(--border);
+    border-left:3px solid var(--accent);
+    border-radius:8px;
+    padding:10px 12px;
+    margin:8px 0;
+  }
+  .bubble .path-card .path-title{font-weight:700;color:var(--text);font-size:14px;margin-bottom:3px;}
+  .bubble .path-card .path-why{color:var(--text-dim);font-size:13px;}
+
+  .typing{
+    display:flex;gap:4px;align-items:center;padding:6px 2px;
+  }
+  .typing span{
+    width:6px;height:6px;border-radius:50%;background:var(--text-dim);
+    animation:bounce 1.2s infinite ease-in-out;
+  }
+  .typing span:nth-child(2){animation-delay:.15s;}
+  .typing span:nth-child(3){animation-delay:.3s;}
+  @keyframes bounce{0%,60%,100%{transform:translateY(0);opacity:.4;}30%{transform:translateY(-5px);opacity:1;}}
+
+  .composer{
+    border-top:1px solid var(--border);
+    padding:14px 16px;
+    display:flex;
+    gap:10px;
+    background:var(--bg-alt);
+  }
+  .composer textarea{
+    flex:1;
+    resize:none;
+    background:var(--panel-2);
+    border:1px solid var(--border);
+    color:var(--text);
+    padding:11px 13px;
+    border-radius:10px;
+    font-size:14px;
+    font-family:inherit;
+    max-height:120px;
+    min-height:44px;
+  }
+  .composer textarea:focus{outline:none;border-color:var(--accent);}
+  .composer button{
+    background:var(--accent);
+    border:none;
+    color:#0b0d12;
+    font-weight:700;
+    padding:0 18px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:14px;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .composer button:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 4px 14px rgba(255,106,61,0.4);}
+  .composer button:disabled{opacity:0.4;cursor:not-allowed;}
+
+  .quick-starts{
+    display:flex;flex-wrap:wrap;gap:8px;padding:0 16px 16px;
+  }
+  .quick-starts button{
+    background:var(--panel-2);
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    padding:8px 12px;
+    border-radius:20px;
+    font-size:12.5px;
+    cursor:pointer;
+    transition:.15s ease;
+  }
+  .quick-starts button:hover{border-color:var(--accent);color:var(--text);}
+
+  .error-banner{
+    background:rgba(255,80,80,0.1);
+    border:1px solid rgba(255,80,80,0.3);
+    color:#ff9d9d;
+    padding:10px 14px;
+    border-radius:10px;
+    font-size:13px;
+    margin:0 16px 12px;
+    display:none;
+  }
+  .error-banner.show{display:block;}
+
+  .reset-row{
+    display:flex;justify-content:flex-end;margin-top:10px;
+  }
+  .reset-row button{
+    background:none;border:1px solid var(--border);color:var(--text-dim);
+    font-size:12px;padding:6px 12px;border-radius:8px;cursor:pointer;
+  }
+  .reset-row button:hover{color:var(--text);border-color:var(--accent);}
+
+  /* Docs panel */
+  .docs{
+    margin-top:26px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    overflow:hidden;
+  }
+  .docs-header{
+    padding:16px 18px;
+    display:flex;justify-content:space-between;align-items:center;
+    cursor:pointer;
+    user-select:none;
+  }
+  .docs-header h2{font-size:14.5px;font-weight:700;}
+  .docs-header span.sub{font-size:12px;color:var(--text-dim);font-weight:400;margin-top:2px;display:block;}
+  .chev{
+    transition:transform .25s ease;
+    color:var(--text-dim);
+    font-size:14px;
+  }
+  .docs.open .chev{transform:rotate(180deg);}
+  .docs-body{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .35s ease;
+    border-top:1px solid transparent;
+  }
+  .docs.open .docs-body{
+    max-height:2400px;
+    border-top:1px solid var(--border);
+  }
+  .docs-content{padding:18px;font-size:13.5px;line-height:1.7;color:var(--text-dim);}
+  .docs-content h3{color:var(--text);font-size:13.5px;margin:16px 0 6px;font-weight:700;}
+  .docs-content h3:first-child{margin-top:0;}
+  .docs-content code{
+    background:var(--bg-alt);
+    padding:2px 6px;
+    border-radius:4px;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--accent-2);
+  }
+  .docs-content pre{
+    background:var(--bg-alt);
+    border:1px solid var(--border);
+    padding:12px;
+    border-radius:8px;
+    overflow-x:auto;
+    font-family:var(--mono);
+    font-size:11.5px;
+    line-height:1.6;
+    color:var(--text-dim);
+    margin:8px 0;
+  }
+  .docs-content ul{margin:6px 0 6px 18px;}
+  .tag-row{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;}
+  .tag{
+    background:var(--accent-soft);
+    color:var(--accent-2);
+    padding:3px 9px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:600;
+  }
+
+  ::-webkit-scrollbar{width:8px;}
+  ::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
+
+  @media (max-width:600px){
+    .msg{max-width:96%;}
+    .chat-log{max-height:50vh;}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="logo">PF</div>
+    <div class="title">
+      <h1>PathFinder</h1>
+      <p>Career direction for early-career grads — direct, no-fluff.</p>
+    </div>
+    <div class="status-pill"><span class="status-dot" id="statusDot"></span><span id="statusText">Not connected</span></div>
+  </header>
+
+  <div class="key-bar" id="keyBar">
+    <span>Enter your Anthropic API key to run PathFinder (stored only in this browser tab's memory, never sent anywhere but api.anthropic.com):</span>
+    <input type="password" id="apiKeyInput" placeholder="sk-ant-...">
+    <button id="saveKeyBtn">Connect</button>
+  </div>
+
+  <div class="chat-shell">
+    <div class="chat-log" id="chatLog"></div>
+    <div class="error-banner" id="errorBanner"></div>
+    <div class="quick-starts" id="quickStarts">
+      <button data-msg="I just graduated and have no idea what career to pursue.">🎓 Just graduated, no direction</button>
+      <button data-msg="I have a degree in one field but I'm not sure I want to work in it.">🔄 Degree doesn't match interests</button>
+      <button data-msg="I'm overwhelmed by too many career options and can't decide.">🌪️ Too many options, decision paralysis</button>
+      <button data-msg="I want a career that actually fits my strengths, not just what's 'safe'.">🎯 Want a strengths-based fit</button>
+    </div>
+    <div class="composer">
+      <textarea id="userInput" placeholder="Tell PathFinder about yourself — background, interests, worries..." rows="1"></textarea>
+      <button id="sendBtn">Send</button>
+    </div>
+  </div>
+  <div class="reset-row"><button id="resetBtn">↺ Reset conversation</button></div>
+
+  <div class="docs" id="docsPanel">
+    <div class="docs-header" id="docsToggle">
+      <div>
+        <h2>How this was built</h2>
+        <span class="sub">System prompt design, UI decisions, and extension ideas</span>
+      </div>
+      <span class="chev">▼</span>
+    </div>
+    <div class="docs-body">
+      <div class="docs-content">
+        <h3>Who this is for</h3>
+        <p>Recent grads / early-career people who feel directionless. The single goal of one session: leave with 2–4 concrete career path recommendations, each with clear reasoning, so they feel oriented and confident enough to take a next step — not just "explored options."</p>
+
+        <h3>System prompt design</h3>
+        <p>The assistant is instructed to run a <strong style="color:var(--text)">guided, adaptive interview</strong> rather than a static form — it asks one focused question at a time (interests, natural strengths, energizing vs draining tasks, constraints like location/money/timeline, and what they've already tried or ruled out), and adapts follow-ups based on what the user says. It's told explicitly not to move to recommendations until it has enough signal, but also not to interrogate endlessly — a hard cap keeps it to roughly 4–6 exchanges before it must synthesize.</p>
+        <p>The output format is a <strong style="color:var(--text)">structured recommendation with reasoning</strong>: 2–4 named career paths, each with a one-line "why this fits you" tied directly back to something the user said, a realistic first step, and an honest note on the tradeoff or challenge of that path. The tone directive is blunt/expert — no hedging, no "there's no wrong choice!" platitudes, no therapy-speak. It's told to disagree with the user if their stated plan conflicts with what they've described about themselves.</p>
+        <p>Edge cases handled in the prompt: users who overshare trauma/mental health struggles (redirect gently to career focus, don't diagnose), users who want to skip the interview and get instant answers (comply but flag that recommendations will be generic), users asking for something outside career scope (redirect firmly), and users who push back on a recommendation (engage with the specific objection rather than backpedaling to please them).</p>
+
+        <h3>UI decisions</h3>
+        <ul>
+          <li><strong style="color:var(--text)">Conversational chat interface</strong> matches the "guided multi-turn" input mode — no rigid form fields that would fight against adaptive follow-ups.</li>
+          <li><strong style="color:var(--text)">Quick-start chips</strong> lower the blank-page barrier for users who don't know how to begin describing themselves.</li>
+          <li><strong style="color:var(--text)">Path cards</strong> render inside assistant messages (parsed from a lightweight <code>[PATH]title|why[/PATH]</code> marker convention) so final recommendations feel scannable and distinct from regular chat text, not just another paragraph.</li>
+          <li>Dark, editorial color palette (near-black + warm orange/amber accent) signals "expert career coach," not "cute chatbot."</li>
+          <li>API key is requested client-side and kept only in page memory (a <code>let</code> variable, never localStorage) — appropriate for a demo/prototype single-file app.</li>
+        </ul>
+
+        <h3>Model call</h3>
+        <pre>POST https://api.anthropic.com/v1/messages
+model: claude-sonnet-4-6
+system: [generated system prompt]
+messages: [full running conversation]</pre>
+
+        <div class="tag-row">
+          <span class="tag">system prompt</span>
+          <span class="tag">multi-turn state</span>
+          <span class="tag">fetch API</span>
+          <span class="tag">no dependencies</span>
+        </div>
+
+        <h3>Future extensions</h3>
+        <ul>
+          <li><strong style="color:var(--text)">Tools:</strong> connect a live job-market/salary-data API so recommendations cite real demand and pay ranges instead of general knowledge; add a resume-parsing tool so the interview can start from an uploaded resume instead of pure conversation.</li>
+          <li><strong style="color:var(--text)">Memory:</strong> persist a user profile across sessions (skills, ruled-out paths, past recommendations) so returning users get "since we last talked, has anything changed?" instead of restarting the interview from zero.</li>
+          <li><strong style="color:var(--text)">Multi-step workflow:</strong> after recommendations, offer a follow-on flow that turns the top path into a 30-day action plan, generates outreach message drafts for informational interviews, or hands off into a resume-tailoring assistant for that specific path.</li>
+          <li><strong style="color:var(--text)">Export:</strong> let users download their recommendation summary as a shareable one-page PDF.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const SYSTEM_PROMPT = `You are PathFinder, an expert career-direction coach for recent graduates and early-career people who feel unsure what direction to take. Your tone is blunt/expert: direct, no fluff, no hedging, no empty encouragement like "there's no wrong choice." You are warm underneath the directness — you clearly want the user to succeed — but you communicate like a sharp, experienced career coach, not a cheerleader.
+
+YOUR GOAL
+By the end of the session, the user should walk away with 2-4 concrete, named career path recommendations, each with clear reasoning tied to specifics they told you, so they feel oriented and confident enough to take a real next step. Direction and confidence are the outcome — not an exhaustive report.
+
+HOW TO RUN THE SESSION
+1. Run a guided, adaptive interview — ask ONE focused question at a time, never a batch of questions at once. Cover, across the conversation (adapt the order and wording based on what the user says, don't recite a fixed script):
+   - What they studied / their background so far
+   - What genuinely interests them or what they find themselves drawn to, even outside "career" framing (hobbies, subjects, problems they like solving)
+   - What kinds of tasks energize them vs. drain them (this is often more revealing than stated interests)
+   - Real constraints: location flexibility, financial pressure/timeline, willingness to retrain or take an entry-level pay cut, etc.
+   - What they've already tried, considered, or ruled out, and why
+2. Build on previous answers with specific, non-generic follow-ups. Show you're listening — reference what they said.
+3. Do not move to recommendations until you have enough signal on interests, energizing/draining work, and constraints. As a rough cap, aim to reach recommendations within 4-6 of your messages — don't interrogate endlessly. If the user seems to have given rich detail early, you may synthesize sooner.
+4. If the user explicitly asks to skip the interview and get instant recommendations, comply — but say plainly that with less information the recommendations will be more generic, then do your best with what they've given you.
+
+FINAL RECOMMENDATION FORMAT
+When you have enough signal, deliver:
+- A short (1-2 sentence) blunt summary of what you're seeing in their profile — the pattern, not a list of facts they already know.
+- 2-4 named career paths. For EACH path, use this exact marker format on its own so the UI can render it as a card:
+[PATH]Path Name|One or two sentences on why this fits them specifically, tied to something they said, plus a concrete first step and the one real tradeoff or challenge of this path stated honestly.[/PATH]
+- Close with a direct, single-sentence nudge on which path to start investigating first and why, if it's not obvious.
+
+Do not soften the tradeoffs. If a path they'll like has a real downside (low starting pay, high competition, long credentialing timeline), say so plainly.
+
+DISAGREEING WITH THE USER
+If what the user says they want to do conflicts with what they've told you about their energy, strengths, or constraints, say so directly and explain the mismatch. Don't just validate their stated plan to be agreeable. If they push back on a recommendation with a specific objection, engage with that objection on its merits — don't cave and don't repeat yourself, actually address it.
+
+EDGE CASES
+- If the user overshares about mental health struggles, burnout, or personal trauma: acknowledge briefly and with genuine care, but do not diagnose or provide therapy. Redirect to how it affects their career direction and keep moving the session forward. If they seem to be in real distress, gently suggest they also talk to a person in their life or a professional, then continue if they want to.
+- If the user asks for something outside career direction scope (e.g., resume writing, interview prep, unrelated advice), note briefly that's outside what this session covers and redirect back to career direction; you can mention they should use a dedicated tool for that if it exists.
+- If the user gives very thin input ("idk, anything"), don't stall — ask a sharper, more concrete question to get traction (e.g., "Name one class or project you didn't want to stop working on. What was it?").
+- Never fabricate labor-market statistics, salary figures, or demand data you're not confident about; speak in general, honest terms about tradeoffs instead of inventing numbers.
+- Keep every message reasonably concise. This is a conversation, not an essay.`;
+
+let apiKey = '';
+let messages = [];
+let isLoading = false;
+
+const chatLog = document.getElementById('chatLog');
+const userInput = document.getElementById('userInput');
+const sendBtn = document.getElementById('sendBtn');
+const errorBanner = document.getElementById('errorBanner');
+const keyBar = document.getElementById('keyBar');
+const statusDot = document.getElementById('statusDot');
+const statusText = document.getElementById('statusText');
+const quickStarts = document.getElementById('quickStarts');
+
+function init(){
+  keyBar.classList.add('show');
+  document.getElementById('saveKeyBtn').addEventListener('click', connectKey);
+  document.getElementById('apiKeyInput').addEventListener('keydown', e=>{ if(e.key==='Enter') connectKey(); });
+  sendBtn.addEventListener('click', handleSend);
+  userInput.addEventListener('keydown', e=>{
+    if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); handleSend(); }
+  });
+  userInput.addEventListener('input', autoGrow);
+  document.getElementById('resetBtn').addEventListener('click', resetConversation);
+  document.getElementById('docsToggle').addEventListener('click', ()=>{
+    document.getElementById('docsPanel').classList.toggle('open');
+  });
+  quickStarts.querySelectorAll('button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      userInput.value = btn.dataset.msg;
+      handleSend();
+    });
+  });
+  renderEmptyState();
+}
+
+function autoGrow(){
+  userInput.style.height='auto';
+  userInput.style.height=Math.min(userInput.scrollHeight,120)+'px';
+}
+
+function connectKey(){
+  const val = document.getElementById('apiKeyInput').value.trim();
+  if(!val){ return; }
+  apiKey = val;
+  keyBar.classList.remove('show');
+  statusDot.classList.add('ready');
+  statusText.textContent='Connected';
+  if(messages.length===0){
+    addAssistantGreeting();
+  }
+}
+
+function renderEmptyState(){
+  chatLog.innerHTML = '';
+  addMessageToDOM('assistant', "I'm PathFinder. I help recent grads and early-career people figure out an actual direction — not a generic list, a real fit based on how you think and work. Enter your API key above to get started, or tap a starting point below.");
+}
+
+function addAssistantGreeting(){
+  chatLog.innerHTML='';
+  const greetText = "Alright, let's get into it. Give me the basics first: what did you study, or what's your background so far?";
+  messages.push({role:'assistant', content: greetText});
+  addMessageToDOM('assistant', greetText);
+}
+
+function resetConversation(){
+  messages = [];
+  errorBanner.classList.remove('show');
+  if(apiKey){ addAssistantGreeting(); } else { renderEmptyState(); }
+}
+
+function addMessageToDOM(role, text){
+  const msg = document.createElement('div');
+  msg.className = 'msg '+role;
+  const avatar = document.createElement('div');
+  avatar.className='avatar';
+  avatar.textContent = role==='assistant' ? 'PF' : 'YOU';
+  const bubble = document.createElement('div');
+  bubble.className='bubble';
+  bubble.innerHTML = formatContent(text);
+  msg.appendChild(avatar);
+  msg.appendChild(bubble);
+  chatLog.appendChild(msg);
+  chatLog.scrollTop = chatLog.scrollHeight;
+  return msg;
+}
+
+function formatContent(text){
+  // escape basic html
+  let safe = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  // parse [PATH]title|why[/PATH]
+  safe = safe.replace(/\[PATH\](.*?)\|(.*?)\[\/PATH\]/gs, (m, title, why)=>{
+    return `<div class="path-card"><div class="path-title">${title.trim()}</div><div class="path-why">${why.trim()}</div></div>`;
+  });
+  // bold **text**
+  safe = safe.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  return safe;
+}
+
+function showTyping(){
+  const msg = document.createElement('div');
+  msg.className='msg assistant';
+  msg.id='typingIndicator';
+  msg.innerHTML = `<div class="avatar">PF</div><div class="bubble"><div class="typing"><span></span><span></span><span></span></div></div>`;
+  chatLog.appendChild(msg);
+  chatLog.scrollTop = chatLog.scrollHeight;
+}
+function hideTyping(){
+  const t = document.getElementById('typingIndicator');
+  if(t) t.remove();
+}
+
+async function handleSend(){
+  const text = userInput.value.trim();
+  if(!text || isLoading) return;
+  if(!apiKey){
+    keyBar.classList.add('show');
+    errorBanner.textContent = 'Please connect your API key first.';
+    errorBanner.classList.add('show');
+    return;
+  }
+  errorBanner.classList.remove('show');
+  quickStarts.style.display='none';
+  messages.push({role:'user', content:text});
+  addMessageToDOM('user', text);
+  userInput.value='';
+  userInput.style.height='auto';
+  isLoading = true;
+  sendBtn.disabled = true;
+  showTyping();
+
+  try{
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body: JSON.stringify({
+        model:'claude-sonnet-4-6',
+        max_tokens:1200,
+        system: SYSTEM_PROMPT,
+        messages: messages
+      })
+    });
+
+    if(!response.ok){
+      const errData = await response.json().catch(()=>({}));
+      throw new Error(errData?.error?.message || `Request failed (${response.status})`);
+    }
+
+    const data = await response.json();
+    const textBlocks = data.content.filter(b=>b.type==='text').map(b=>b.text);
+    const fullText = textBlocks.join('\n');
+    hideTyping();
+    messages.push({role:'assistant', content: fullText});
+    addMessageToDOM('assistant', fullText);
+  }catch(err){
+    hideTyping();
+    errorBanner.textContent = 'Something went wrong: '+ err.message;
+    errorBanner.classList.add('show');
+    messages.pop();
+  }finally{
+    isLoading=false;
+    sendBtn.disabled=false;
+  }
+}
+
+init();
+</script>
+</body>
+</html>
