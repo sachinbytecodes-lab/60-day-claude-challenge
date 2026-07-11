@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Object Kit — Python OOP Interactive Learning Studio</title>
+<style>
+:root{
+  --ink:#0d1826;
+  --ink2:#132339;
+  --panel:#152a42;
+  --panel-line:#22405f;
+  --amber:#e8a33d;
+  --teal:#4fd1c5;
+  --coral:#f2789f;
+  --paper:#eef3f7;
+  --dim:#8fa5bd;
+  --mono:'JetBrains Mono','SFMono-Regular',Consolas,monospace;
+  --disp:'Fraunces','Georgia',serif;
+  --body:'Inter','Segoe UI',sans-serif;
+  --radius:10px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--ink);
+  color:var(--paper);
+  font-family:var(--body);
+  line-height:1.6;
+  transition:background .3s,color .3s;
+}
+body.light{
+  --ink:#f3f6f9;
+  --ink2:#ffffff;
+  --panel:#ffffff;
+  --panel-line:#d8e1ea;
+  --paper:#0d1826;
+  --dim:#4a5c70;
+}
+h1,h2,h3,h4{font-family:var(--disp); font-weight:600; margin:0 0 .5em;}
+code, .mono{font-family:var(--mono);}
+a{color:var(--teal);}
+.wrap{max-width:1000px;margin:0 auto;padding:0 24px;}
+::selection{background:var(--amber);color:#111;}
+
+#topbar{
+  position:sticky;top:0;z-index:50;
+  background:rgba(13,24,38,.88);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--panel-line);
+}
+body.light #topbar{background:rgba(255,255,255,.88);}
+#topbar .inner{
+  max-width:1000px;margin:0 auto;padding:12px 24px;
+  display:flex;align-items:center;gap:16px;justify-content:space-between;
+}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-size:1.05rem;font-weight:600;}
+.brand svg{width:26px;height:26px;flex:none;}
+.progress-track{
+  flex:1;height:8px;background:var(--panel);border:1px solid var(--panel-line);border-radius:6px;overflow:hidden;margin:0 16px;
+}
+.progress-fill{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,var(--amber),var(--coral));
+  transition:width .5s ease;
+}
+#pct{font-family:var(--mono);font-size:.8rem;color:var(--dim);white-space:nowrap;}
+.mode-toggle{
+  border:1px solid var(--panel-line);background:var(--panel);color:var(--paper);
+  border-radius:20px;padding:6px 14px;cursor:pointer;font-size:.8rem;font-family:var(--mono);
+}
+
+.hero{
+  padding:64px 0 40px;
+  border-bottom:1px solid var(--panel-line);
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background-image:
+    linear-gradient(var(--panel-line) 1px,transparent 1px),
+    linear-gradient(90deg,var(--panel-line) 1px,transparent 1px);
+  background-size:40px 40px;
+  opacity:.15;
+  mask-image:linear-gradient(180deg,black,transparent 85%);
+}
+.hero .inner{position:relative;}
+.eyebrow{
+  font-family:var(--mono);color:var(--amber);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;
+}
+.hero h1{font-size:clamp(2.1rem,5vw,3.4rem);max-width:760px;letter-spacing:-.01em;}
+.hero p.lede{max-width:620px;color:var(--dim);font-size:1.08rem;}
+
+.blueprint-card{
+  margin-top:32px;background:var(--panel);border:1px solid var(--panel-line);border-radius:var(--radius);
+  padding:20px 24px;position:relative;overflow:hidden;
+}
+.blueprint-card h4{font-family:var(--mono);color:var(--teal);font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px;}
+.class-diagram{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-start;}
+.class-box{
+  border:1px solid var(--panel-line);border-radius:8px;min-width:170px;background:var(--ink2);
+  font-family:var(--mono);font-size:.78rem;
+}
+.class-box .title{background:var(--amber);color:#1a1200;padding:6px 10px;border-radius:8px 8px 0 0;font-weight:700;}
+.class-box .body{padding:8px 10px;color:var(--dim);}
+.class-box .body div{padding:2px 0;}
+.arrow-note{align-self:center;color:var(--dim);font-family:var(--mono);font-size:.75rem;}
+
+.meta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-top:28px;}
+.meta-card{background:var(--panel);border:1px solid var(--panel-line);border-radius:var(--radius);padding:16px 18px;}
+.meta-card .label{font-family:var(--mono);font-size:.72rem;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;}
+.meta-card .value{font-size:1rem;margin-top:6px;}
+.meta-card ul{margin:6px 0 0;padding-left:18px;color:var(--dim);font-size:.92rem;}
+
+.reward-strip{margin-top:24px;display:flex;gap:10px;flex-wrap:wrap;}
+.badge{
+  display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--panel-line);
+  border-radius:20px;padding:8px 14px;font-size:.82rem;color:var(--dim);
+}
+.badge.earned{border-color:var(--amber);color:var(--amber);background:rgba(232,163,61,.08);}
+.badge .dot{width:8px;height:8px;border-radius:50%;background:var(--panel-line);}
+.badge.earned .dot{background:var(--amber);}
+
+.start-btn{
+  margin-top:30px;display:inline-flex;align-items:center;gap:10px;
+  background:var(--amber);color:#1a1200;font-weight:700;border:none;padding:14px 26px;border-radius:8px;
+  cursor:pointer;font-size:1rem;font-family:var(--body);transition:transform .15s;
+}
+.start-btn:hover{transform:translateY(-2px);}
+
+#modnav{
+  position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:40;
+  display:flex;flex-direction:column;gap:10px;
+}
+.mnav-dot{
+  width:12px;height:12px;border-radius:50%;background:var(--panel);border:2px solid var(--panel-line);
+  cursor:pointer;position:relative;transition:.2s;
+}
+.mnav-dot.active{background:var(--amber);border-color:var(--amber);}
+.mnav-dot.done{background:var(--teal);border-color:var(--teal);}
+.mnav-dot::after{
+  content:attr(data-label);position:absolute;right:20px;top:50%;transform:translateY(-50%);
+  background:var(--panel);border:1px solid var(--panel-line);padding:4px 8px;border-radius:6px;
+  font-size:.72rem;white-space:nowrap;opacity:0;pointer-events:none;transition:.2s;font-family:var(--mono);
+}
+.mnav-dot:hover::after{opacity:1;}
+@media (max-width:900px){#modnav{display:none;}}
+
+.module{
+  padding:70px 0;border-bottom:1px solid var(--panel-line);
+  opacity:.35;filter:grayscale(.6);pointer-events:none;transition:opacity .4s,filter .4s;
+}
+.module.unlocked{opacity:1;filter:none;pointer-events:auto;}
+.mod-head{display:flex;align-items:baseline;gap:14px;margin-bottom:10px;}
+.mod-num{font-family:var(--mono);color:var(--amber);font-size:1rem;}
+.mod-diff{font-family:var(--mono);font-size:.72rem;color:var(--dim);border:1px solid var(--panel-line);padding:3px 10px;border-radius:12px;margin-left:auto;}
+
+.section-block{margin:34px 0;}
+.section-block h3{font-size:1.35rem;color:var(--teal);}
+.section-block h4{font-size:1rem;color:var(--paper);margin-top:22px;}
+.section-block p{color:var(--paper);}
+.callout{
+  background:var(--panel);border:1px solid var(--panel-line);border-left:4px solid var(--amber);
+  border-radius:8px;padding:16px 18px;margin:16px 0;
+}
+.callout.analogy{border-left-color:var(--teal);}
+.callout.misconception{border-left-color:var(--coral);}
+.callout .tag{font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);margin-bottom:6px;display:block;}
+
+pre.code{
+  background:var(--ink2);border:1px solid var(--panel-line);border-radius:8px;padding:16px 18px;overflow-x:auto;
+  font-family:var(--mono);font-size:.85rem;line-height:1.55;color:#d6e2ee;
+}
+body.light pre.code{color:#0d1826;}
+pre.code .c{color:#6f8ba3;font-style:italic;}
+pre.code .k{color:var(--amber);}
+pre.code .s{color:var(--teal);}
+pre.code .f{color:var(--coral);}
+
+.compare-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.92rem;}
+.compare-table th,.compare-table td{border:1px solid var(--panel-line);padding:10px 12px;text-align:left;}
+.compare-table th{background:var(--panel);color:var(--teal);font-family:var(--mono);font-size:.78rem;text-transform:uppercase;}
+
+.diagram-wrap{margin:20px 0;padding:16px;background:var(--panel);border:1px solid var(--panel-line);border-radius:var(--radius);}
+
+.exercise-box{background:var(--panel);border:1px solid var(--panel-line);border-radius:var(--radius);padding:20px;margin:20px 0;}
+.exercise-box h4{margin-top:0;color:var(--amber);}
+textarea.ex-input{
+  width:100%;min-height:120px;background:var(--ink2);color:var(--paper);border:1px solid var(--panel-line);
+  border-radius:8px;padding:12px;font-family:var(--mono);font-size:.85rem;resize:vertical;
+}
+.ex-check-btn{margin-top:10px;background:var(--teal);color:#06282a;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-weight:700;font-size:.85rem;}
+.ex-feedback{margin-top:10px;font-size:.88rem;padding:10px 12px;border-radius:6px;display:none;}
+.ex-feedback.show{display:block;}
+.ex-feedback.good{background:rgba(79,209,197,.12);border:1px solid var(--teal);color:var(--teal);}
+.ex-feedback.hint{background:rgba(232,163,61,.12);border:1px solid var(--amber);color:var(--amber);}
+
+.takeaway-box{
+  background:linear-gradient(135deg,rgba(232,163,61,.09),rgba(79,209,197,.06));
+  border:1px solid var(--panel-line);border-radius:var(--radius);padding:20px 22px;margin:24px 0;
+}
+.takeaway-box h4{color:var(--amber);margin-top:0;}
+.takeaway-box ul{margin:0;padding-left:20px;}
+.takeaway-box li{margin:6px 0;}
+
+.interactive-toy{background:var(--panel);border:1px solid var(--panel-line);border-radius:var(--radius);padding:20px;margin:20px 0;}
+.toy-row{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0;}
+.toy-btn{background:var(--ink2);border:1px solid var(--panel-line);color:var(--paper);padding:8px 14px;border-radius:6px;cursor:pointer;font-family:var(--mono);font-size:.8rem;}
+.toy-btn:hover{border-color:var(--amber);}
+.toy-output{font-family:var(--mono);background:var(--ink2);border:1px solid var(--panel-line);border-radius:8px;padding:12px;min-height:40px;font-size:.85rem;color:var(--teal);white-space:pre-wrap;}
+
+.quiz{margin-top:50px;background:var(--panel);border:1px solid var(--panel-line);border-radius:14px;padding:28px;}
+.quiz h3{color:var(--coral);}
+.quiz-progress{font-family:var(--mono);font-size:.78rem;color:var(--dim);margin-bottom:16px;}
+.q-block{margin-bottom:26px;padding-bottom:22px;border-bottom:1px solid var(--panel-line);}
+.q-block:last-of-type{border-bottom:none;}
+.q-text{font-weight:600;margin-bottom:12px;}
+.q-options{display:flex;flex-direction:column;gap:8px;}
+.q-opt{
+  display:flex;align-items:center;gap:10px;background:var(--ink2);border:1px solid var(--panel-line);
+  border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.92rem;transition:.15s;
+}
+.q-opt:hover{border-color:var(--dim);}
+.q-opt.selected{border-color:var(--amber);}
+.q-opt.correct{border-color:var(--teal);background:rgba(79,209,197,.1);}
+.q-opt.incorrect{border-color:var(--coral);background:rgba(242,120,159,.1);}
+.q-explain{margin-top:10px;font-size:.85rem;color:var(--dim);background:var(--ink2);border-radius:8px;padding:10px 12px;display:none;}
+.q-explain.show{display:block;}
+.quiz-submit{background:var(--coral);color:#2a0714;border:none;padding:12px 24px;border-radius:8px;font-weight:700;cursor:pointer;font-size:.95rem;}
+.quiz-summary{margin-top:20px;padding:18px;border-radius:10px;background:var(--ink2);border:1px solid var(--panel-line);display:none;text-align:center;}
+.quiz-summary.show{display:block;}
+.quiz-summary .score{font-family:var(--disp);font-size:2rem;color:var(--amber);}
+.unlock-next-btn{margin-top:14px;background:var(--amber);color:#1a1200;border:none;padding:10px 22px;border-radius:8px;font-weight:700;cursor:pointer;}
+
+.final{padding:70px 0;}
+.challenge-box{background:var(--panel);border:1px solid var(--panel-line);border-radius:14px;padding:26px;margin:26px 0;}
+.cheatsheet{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:20px 0;}
+.cheat-card{background:var(--panel);border:1px solid var(--panel-line);border-radius:10px;padding:16px 18px;}
+.cheat-card h4{color:var(--teal);font-size:.95rem;margin-bottom:8px;}
+.cheat-card code{display:block;background:var(--ink2);padding:8px 10px;border-radius:6px;margin:6px 0;font-size:.78rem;}
+
+.resource-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin:20px 0;}
+.resource-card{background:var(--panel);border:1px solid var(--panel-line);border-radius:10px;padding:18px;}
+.resource-card h4{color:var(--amber);font-size:.9rem;text-transform:uppercase;letter-spacing:.05em;font-family:var(--mono);margin-bottom:10px;}
+.resource-card ul{margin:0;padding-left:18px;color:var(--dim);font-size:.9rem;}
+.resource-card li{margin:6px 0;}
+.resource-card a{color:var(--paper);text-decoration:none;border-bottom:1px dotted var(--teal);}
+.resource-card a:hover{color:var(--teal);}
+
+.print-btn{background:transparent;border:1px solid var(--panel-line);color:var(--paper);padding:10px 20px;border-radius:8px;cursor:pointer;font-family:var(--mono);font-size:.82rem;margin-top:14px;}
+footer{text-align:center;padding:40px 0;color:var(--dim);font-size:.82rem;font-family:var(--mono);}
+
+@media print{
+  #topbar,#modnav,.start-btn,.quiz-submit,.ex-check-btn,.mode-toggle,.print-btn{display:none!important;}
+  body{background:#fff;color:#000;}
+  .module{opacity:1!important;filter:none!important;}
+}
+@media (max-width:600px){
+  .hero{padding:44px 0 28px;}
+  .module{padding:44px 0;}
+  .quiz{padding:18px;}
+}
+</style>
+</head>
+<body>
+
+<div id="topbar">
+  <div class="inner">
+    <div class="brand">
+      <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="8" height="8" rx="2" stroke="var(--amber)" stroke-width="1.6"/><rect x="13" y="13" width="8" height="8" rx="2" stroke="var(--teal)" stroke-width="1.6"/><path d="M11 7h4a2 2 0 012 2v4" stroke="var(--coral)" stroke-width="1.6"/></svg>
+      Object Kit
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <span id="pct" class="mono">0% complete</span>
+    <button class="mode-toggle" id="modeToggle">☾ Dark</button>
+  </div>
+</div>
+
+<div id="modnav">
+  <div class="mnav-dot active" data-target="hero" data-label="Intro"></div>
+  <div class="mnav-dot" data-target="mod1" data-label="M1 · Foundations"></div>
+  <div class="mnav-dot" data-target="mod2" data-label="M2 · Inheritance"></div>
+  <div class="mnav-dot" data-target="mod3" data-label="M3 · Application"></div>
+  <div class="mnav-dot" data-target="mod4" data-label="M4 · Mastery"></div>
+  <div class="mnav-dot" data-target="final" data-label="Final"></div>
+</div>
+
+<section class="hero" id="hero">
+  <div class="wrap inner">
+    <div class="eyebrow">Interactive Learning Studio · Python</div>
+    <h1>Object-Oriented Programming, built from the blueprint up.</h1>
+    <p class="lede">A complete, hands-on tutorial that takes you from "what is a class?" to designing real, extensible Python systems — with working code, live exercises, and four graded checkpoints along the way.</p>
+
+    <div class="blueprint-card">
+      <h4>// the shape of a class, at a glance</h4>
+      <div class="class-diagram">
+        <div class="class-box">
+          <div class="title">Animal</div>
+          <div class="body"><div>- name</div><div>- sound</div><div>+ speak()</div></div>
+        </div>
+        <div class="arrow-note">──inherits──▶</div>
+        <div class="class-box">
+          <div class="title">Dog(Animal)</div>
+          <div class="body"><div>+ speak()  <span style="color:var(--coral)">overridden</span></div><div>+ fetch()</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-card"><div class="label">Est. time</div><div class="value">70–90 minutes</div></div>
+      <div class="meta-card"><div class="label">Prerequisites</div><ul><li>Python variables, functions, loops</li><li>Comfort reading basic scripts</li></ul></div>
+      <div class="meta-card"><div class="label">You'll be able to</div><ul><li>Design classes & objects</li><li>Model relationships with inheritance</li><li>Apply encapsulation & polymorphism</li><li>Use dunder methods & composition</li></ul></div>
+      <div class="meta-card"><div class="label">Reward system</div><div class="value" style="font-size:.85rem;color:var(--dim)">Earn a badge per module + a Mastery Certificate at the end.</div></div>
+    </div>
+
+    <div class="reward-strip" id="badgeStrip">
+      <div class="badge" data-badge="1"><span class="dot"></span>Foundations Badge</div>
+      <div class="badge" data-badge="2"><span class="dot"></span>Inheritance Badge</div>
+      <div class="badge" data-badge="3"><span class="dot"></span>Application Badge</div>
+      <div class="badge" data-badge="4"><span class="dot"></span>Mastery Badge</div>
+      <div class="badge" data-badge="cert"><span class="dot"></span>🏆 Completion Certificate</div>
+    </div>
+
+    <button class="start-btn" id="startBtn">Begin Module 1 →</button>
+  </div>
+</section>
+
+<section class="module unlocked" id="mod1">
+  <div class="wrap">
+    <div class="mod-head"><span class="mod-num">Module 01</span><h2 style="margin:0;">Foundations — Classes & Objects</h2><span class="mod-diff">Beginner</span></div>
+
+    <div class="section-block">
+      <h3>What is a class, really?</h3>
+      <p>A <strong>class</strong> is a blueprint for creating objects. It doesn't do anything by itself — it just describes what data (<em>attributes</em>) and behavior (<em>methods</em>) every object built from it will have. An <strong>object</strong> (or <em>instance</em>) is one concrete thing made from that blueprint.</p>
+
+      <div class="callout analogy"><span class="tag">Analogy</span>Think of a class as a cookie cutter and objects as the cookies. The cutter defines the shape (attributes) and how you can decorate it (methods), but each cookie is separate dough — changing one cookie's icing doesn't change another's.</div>
+
+      <pre class="code"><span class="k">class</span> Dog:
+    <span class="c"># the blueprint</span>
+    <span class="k">def</span> <span class="f">__init__</span>(self, name, breed):
+        self.name = name       <span class="c"># attribute</span>
+        self.breed = breed     <span class="c"># attribute</span>
+
+    <span class="k">def</span> <span class="f">bark</span>(self):        <span class="c"># method</span>
+        <span class="k">return</span> <span class="s">f"{self.name} says Woof!"</span>
+
+rex = Dog(<span class="s">"Rex"</span>, <span class="s">"Labrador"</span>)   <span class="c"># rex is an object/instance</span>
+<span class="k">print</span>(rex.bark())                <span class="c"># Rex says Woof!</span></pre>
+
+      <h4>The role of <code>__init__</code> and <code>self</code></h4>
+      <p><code>__init__</code> is the <strong>constructor</strong> — Python calls it automatically the moment you create an object, so you can set up its starting attributes. <code>self</code> is simply "the object currently being worked on"; every instance method receives it automatically as the first parameter so it knows which object's data to use.</p>
+
+      <div class="diagram-wrap">
+        <svg viewBox="0 0 640 150" width="100%" height="150" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="20" width="180" height="110" rx="8" fill="none" stroke="var(--panel-line)"/>
+          <text x="100" y="45" text-anchor="middle" fill="var(--amber)" font-family="monospace" font-size="13">class Dog</text>
+          <text x="100" y="70" text-anchor="middle" fill="var(--dim)" font-family="monospace" font-size="11">blueprint only</text>
+          <text x="100" y="95" text-anchor="middle" fill="var(--dim)" font-family="monospace" font-size="11">name, breed</text>
+          <text x="100" y="115" text-anchor="middle" fill="var(--dim)" font-family="monospace" font-size="11">bark()</text>
+          <path d="M195 75 L 260 75" stroke="var(--teal)" stroke-width="2" marker-end="url(#arrow)"/>
+          <text x="228" y="65" text-anchor="middle" fill="var(--teal)" font-family="monospace" font-size="10">Dog(...)</text>
+          <rect x="270" y="20" width="150" height="110" rx="8" fill="none" stroke="var(--teal)"/>
+          <text x="345" y="45" text-anchor="middle" fill="var(--teal)" font-family="monospace" font-size="13">rex</text>
+          <text x="345" y="70" text-anchor="middle" fill="var(--dim)" font-family="monospace" font-size="11">name="Rex"</text>
+          <text x="345" y="95" text-anchor="middle" fill="var(--dim)" font-family="monospace" font-size="11">breed="Labrador"</text>
+          <rect x="440" y="20" width="180" height="110" rx="8" fill="none" stroke="var(--coral)"/>
+          <text x="530" y="45" text-anchor="middle" fill="var(--coral)" font-family="monospace" font-size="13">buddy</text>
+          <text x="530" y="70" text-anchor="middle" fill="var(--dim)" font-family="monospace" font-size="11">name="Buddy"</text>
+          <text x="530" y="95" text-anchor="middle" fill="var(--dim)" font-family="monospace" font-size="11">breed="Poodle"</text>
+          <path d="M195 100 L 440 100" stroke="var(--coral)" stroke-width="2" stroke-dasharray="4 3"/>
+          <text x="317" y="130" text-anchor="middle" fill="var(--dim)" font-family="monospace" font-size="10">one class → many independent objects</text>
+          <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--teal)"/></marker></defs>
+        </svg>
+      </div>
+
+      <h4>Class attributes vs. instance attributes</h4>
+      <table class="compare-table">
+        <tr><th>Instance attribute</th><th>Class attribute</th></tr>
+        <tr><td>Set in <code>__init__</code> via <code>self.x = ...</code></td><td>Defined directly in the class body</td></tr>
+        <tr><td>Unique to each object</td><td>Shared by all objects unless overridden</td></tr>
+        <tr><td><code>self.name</code></td><td><code>Dog.species = "Canine"</code></td></tr>
+      </table>
+
+      <div class="callout misconception"><span class="tag">Common misconception</span>Beginners often think <code>self</code> is a keyword. It's not — it's just a convention. You could name it anything, but every experienced Python developer expects <code>self</code>, so deviating breaks readability for no benefit.</div>
+
+      <div class="interactive-toy">
+        <h4 style="margin-top:0;">Try it: build an object mentally</h4>
+        <p style="color:var(--dim);font-size:.88rem;">Pick values and see the equivalent Python object print out.</p>
+        <div class="toy-row">
+          <button class="toy-btn" data-name="Rex" data-breed="Labrador">Rex · Labrador</button>
+          <button class="toy-btn" data-name="Milo" data-breed="Beagle">Milo · Beagle</button>
+          <button class="toy-btn" data-name="Luna" data-breed="Husky">Luna · Husky</button>
+        </div>
+        <div class="toy-output" id="toy1out">Click a button above.</div>
+      </div>
+
+      <div class="exercise-box">
+        <h4>Exercise 1.1 — Write a class</h4>
+        <p>Write a <code>Book</code> class with attributes <code>title</code> and <code>author</code>, and a method <code>describe()</code> that returns <code>"{title} by {author}"</code>.</p>
+        <textarea class="ex-input" id="ex1">class Book:
+    def __init__(self, title, author):
+        self.title = title
+        self.author = author
+
+    def describe(self):
+        return f"{self.title} by {self.author}"</textarea>
+        <button class="ex-check-btn" onclick="checkExercise('ex1','ex1fb',['def __init__','self.title','self.author','def describe','return'])">Check my approach</button>
+        <div class="ex-feedback" id="ex1fb"></div>
+      </div>
+
+      <div class="takeaway-box">
+        <h4>Key takeaways</h4>
+        <ul>
+          <li>A class is a blueprint; an object is a concrete instance of that blueprint.</li>
+          <li><code>__init__</code> runs automatically to set up a new object's attributes.</li>
+          <li><code>self</code> refers to "this particular object" inside a method.</li>
+          <li>Instance attributes belong to one object; class attributes are shared.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="quiz" id="quiz1" data-quiz="1">
+      <h3>Checkpoint Quiz — Foundations</h3>
+      <div class="quiz-progress">4 questions · instant feedback · 70%+ to unlock Module 2</div>
+      <div class="quiz-body"></div>
+      <button class="quiz-submit">Submit answers</button>
+      <div class="quiz-summary"><div class="score"></div><div class="score-msg"></div><button class="unlock-next-btn" data-next="mod2">Unlock Module 2 →</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="module" id="mod2">
+  <div class="wrap">
+    <div class="mod-head"><span class="mod-num">Module 02</span><h2 style="margin:0;">Building Relationships — Inheritance</h2><span class="mod-diff">Beginner → Intermediate</span></div>
+
+    <div class="section-block">
+      <h3>Inheritance: reusing and specializing behavior</h3>
+      <p><strong>Inheritance</strong> lets one class (the <em>child</em> or <em>subclass</em>) reuse and extend the attributes and methods of another (the <em>parent</em> or <em>superclass</em>). It models an "is-a" relationship: a <code>Dog</code> <em>is an</em> <code>Animal</code>.</p>
+
+      <pre class="code"><span class="k">class</span> Animal:
+    <span class="k">def</span> <span class="f">__init__</span>(self, name):
+        self.name = name
+
+    <span class="k">def</span> <span class="f">speak</span>(self):
+        <span class="k">return</span> <span class="s">f"{self.name} makes a sound."</span>
+
+<span class="k">class</span> Dog(Animal):              <span class="c"># Dog inherits from Animal</span>
+    <span class="k">def</span> <span class="f">speak</span>(self):        <span class="c"># overriding the parent method</span>
+        <span class="k">return</span> <span class="s">f"{self.name} says Woof!"</span>
+
+<span class="k">class</span> Puppy(Dog):
+    <span class="k">def</span> <span class="f">speak</span>(self):
+        parent_line = <span class="f">super</span>().speak()   <span class="c"># call the parent's version too</span>
+        <span class="k">return</span> parent_line + <span class="s">" (but it's more of a yip)"</span></pre>
+
+      <div class="callout analogy"><span class="tag">Analogy</span>Inheritance is like a family recipe passed down through generations. A grandchild's recipe starts from grandma's base recipe (the parent class) but can tweak an ingredient (override a method) or add a new step (add a new method) — while still keeping most of the original intact.</div>
+
+      <h4>Method Resolution Order (MRO)</h4>
+      <p>When you call a method, Python looks for it starting at the object's own class, then walks up the chain of parents until it finds a match. <code>super()</code> lets a child explicitly call the parent's version instead of fully replacing it.</p>
+
+      <div class="diagram-wrap">
+        <svg viewBox="0 0 500 220" width="100%" height="220" xmlns="http://www.w3.org/2000/svg">
+          <rect x="180" y="10" width="140" height="50" rx="8" fill="none" stroke="var(--amber)"/>
+          <text x="250" y="40" text-anchor="middle" fill="var(--amber)" font-family="monospace" font-size="13">Animal</text>
+          <path d="M250 60 L250 95" stroke="var(--panel-line)" stroke-width="2" marker-end="url(#a2)"/>
+          <rect x="180" y="100" width="140" height="50" rx="8" fill="none" stroke="var(--teal)"/>
+          <text x="250" y="130" text-anchor="middle" fill="var(--teal)" font-family="monospace" font-size="13">Dog</text>
+          <path d="M250 150 L250 185" stroke="var(--panel-line)" stroke-width="2" marker-end="url(#a2)"/>
+          <rect x="180" y="190" width="140" height="30" rx="8" fill="none" stroke="var(--coral)"/>
+          <text x="250" y="210" text-anchor="middle" fill="var(--coral)" font-family="monospace" font-size="12">Puppy</text>
+          <text x="340" y="35" fill="var(--dim)" font-family="monospace" font-size="10">speak() defined</text>
+          <text x="340" y="125" fill="var(--dim)" font-family="monospace" font-size="10">speak() overridden</text>
+          <text x="340" y="205" fill="var(--dim)" font-family="monospace" font-size="10">speak() + super()</text>
+          <defs><marker id="a2" markerWidth="8" markerHeight="8" refX="4" refY="6" orient="auto"><path d="M0,0 L4,6 L8,0 Z" fill="var(--panel-line)"/></marker></defs>
+        </svg>
+      </div>
+
+      <table class="compare-table">
+        <tr><th>Without inheritance</th><th>With inheritance</th></tr>
+        <tr><td>Copy-paste <code>speak</code>, <code>eat</code>, <code>sleep</code> into every animal class</td><td>Define once in <code>Animal</code>, reuse in every subclass</td></tr>
+        <tr><td>Bug fixes must be repeated everywhere</td><td>Fix once in the parent, all children benefit</td></tr>
+        <tr><td>No shared "type" relationship</td><td><code>isinstance(rex, Animal)</code> is <code>True</code></td></tr>
+      </table>
+
+      <div class="callout misconception"><span class="tag">Common misconception</span>Overriding a method does not delete the parent's version — it just means Python finds the child's version first. The parent version still exists and can be reached with <code>super()</code>.</div>
+
+      <div class="interactive-toy">
+        <h4 style="margin-top:0;">Try it: who speaks?</h4>
+        <div class="toy-row">
+          <button class="toy-btn" onclick="document.getElementById('toy2out').textContent='Animal().speak() → Generic makes a sound.'">Animal</button>
+          <button class="toy-btn" onclick="document.getElementById('toy2out').textContent='Dog(\'Rex\').speak() → Rex says Woof!'">Dog</button>
+          <button class="toy-btn" onclick="document.getElementById('toy2out').textContent='Puppy(\'Fido\').speak() → Fido says Woof! (but its more of a yip)'">Puppy</button>
+        </div>
+        <div class="toy-output" id="toy2out">Click a class to see what speak() returns.</div>
+      </div>
+
+      <div class="exercise-box">
+        <h4>Exercise 2.1 — Extend the hierarchy</h4>
+        <p>Create a <code>Cat</code> class that inherits from <code>Animal</code> and overrides <code>speak()</code> to return <code>"{name} says Meow!"</code>.</p>
+        <textarea class="ex-input" id="ex2">class Cat(Animal):
+    def speak(self):
+        return f"{self.name} says Meow!"</textarea>
+        <button class="ex-check-btn" onclick="checkExercise('ex2','ex2fb',['class Cat(Animal)','def speak','return'])">Check my approach</button>
+        <div class="ex-feedback" id="ex2fb"></div>
+      </div>
+
+      <div class="takeaway-box">
+        <h4>Key takeaways</h4>
+        <ul>
+          <li>Inheritance models "is-a" relationships and lets subclasses reuse parent code.</li>
+          <li>Overriding replaces a method's behavior in the subclass; <code>super()</code> lets you still call the parent's version.</li>
+          <li>Python resolves method calls by walking the class hierarchy (MRO).</li>
+          <li>Deep, tangled hierarchies can become hard to follow — inherit only when there's a genuine "is-a" relationship.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="quiz" id="quiz2" data-quiz="2">
+      <h3>Checkpoint Quiz — Inheritance</h3>
+      <div class="quiz-progress">4 questions · instant feedback · 70%+ to unlock Module 3</div>
+      <div class="quiz-body"></div>
+      <button class="quiz-submit">Submit answers</button>
+      <div class="quiz-summary"><div class="score"></div><div class="score-msg"></div><button class="unlock-next-btn" data-next="mod3">Unlock Module 3 →</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="module" id="mod3">
+  <div class="wrap">
+    <div class="mod-head"><span class="mod-num">Module 03</span><h2 style="margin:0;">Practical Application — Encapsulation & Polymorphism</h2><span class="mod-diff">Intermediate</span></div>
+
+    <div class="section-block">
+      <h3>Encapsulation: protecting internal state</h3>
+      <p><strong>Encapsulation</strong> means bundling data and the methods that operate on it together, and controlling how that data is accessed or changed from outside. Python signals "private" intent with a leading underscore (convention, not enforced) or a double underscore (name-mangled, harder to access accidentally).</p>
+
+      <pre class="code"><span class="k">class</span> BankAccount:
+    <span class="k">def</span> <span class="f">__init__</span>(self, balance):
+        self.__balance = balance      <span class="c"># "private" attribute</span>
+
+    <span class="k">def</span> <span class="f">deposit</span>(self, amount):
+        <span class="k">if</span> amount &gt; 0:
+            self.__balance += amount
+
+    <span class="k">@property</span>
+    <span class="k">def</span> <span class="f">balance</span>(self):          <span class="c"># controlled, read-only access</span>
+        <span class="k">return</span> self.__balance
+
+acc = BankAccount(100)
+acc.deposit(50)
+<span class="k">print</span>(acc.balance)   <span class="c"># 150 — but acc.__balance directly is blocked</span></pre>
+
+      <div class="callout analogy"><span class="tag">Analogy</span>Encapsulation is like a vending machine. You interact through buttons (public methods) — you never reach in and rearrange the snacks yourself (internal attributes). The machine controls exactly how its internal state can change.</div>
+
+      <h4>Polymorphism: one interface, many behaviors</h4>
+      <p><strong>Polymorphism</strong> means different classes can be used interchangeably if they share a common interface — the same method name behaves appropriately for each type.</p>
+
+      <pre class="code"><span class="k">for</span> creature <span class="k">in</span> [Dog(<span class="s">"Rex"</span>), Cat(<span class="s">"Tom"</span>), Animal(<span class="s">"???"</span>)]:
+    <span class="k">print</span>(creature.speak())   <span class="c"># each object responds in its own way</span>
+
+<span class="c"># Rex says Woof!
+# Tom says Meow!
+# ??? makes a sound.</span></pre>
+
+      <div class="diagram-wrap">
+        <svg viewBox="0 0 560 160" width="100%" height="160" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="60" width="120" height="40" rx="8" fill="none" stroke="var(--panel-line)"/>
+          <text x="80" y="85" text-anchor="middle" fill="var(--paper)" font-family="monospace" font-size="12">.speak()</text>
+          <path d="M140 80 L 200 40" stroke="var(--amber)" stroke-width="2"/>
+          <path d="M140 80 L 200 80" stroke="var(--teal)" stroke-width="2"/>
+          <path d="M140 80 L 200 120" stroke="var(--coral)" stroke-width="2"/>
+          <rect x="205" y="20" width="130" height="36" rx="8" fill="none" stroke="var(--amber)"/>
+          <text x="270" y="42" text-anchor="middle" fill="var(--amber)" font-family="monospace" font-size="11">Dog → "Woof!"</text>
+          <rect x="205" y="62" width="130" height="36" rx="8" fill="none" stroke="var(--teal)"/>
+          <text x="270" y="84" text-anchor="middle" fill="var(--teal)" font-family="monospace" font-size="11">Cat → "Meow!"</text>
+          <rect x="205" y="104" width="130" height="36" rx="8" fill="none" stroke="var(--coral)"/>
+          <text x="270" y="126" text-anchor="middle" fill="var(--coral)" font-family="monospace" font-size="10">Animal → "a sound"</text>
+        </svg>
+      </div>
+
+      <table class="compare-table">
+        <tr><th>Duck typing (Python style)</th><th>Formal interfaces (other languages)</th></tr>
+        <tr><td>"If it has <code>.speak()</code>, treat it like something that speaks"</td><td>Must explicitly declare it implements an interface</td></tr>
+        <tr><td>Flexible, but errors surface at runtime</td><td>Stricter, errors caught earlier by the compiler</td></tr>
+      </table>
+
+      <div class="callout misconception"><span class="tag">Common misconception</span>Polymorphism is not only about inheritance. In Python, any two unrelated objects that both implement <code>.speak()</code> can be used polymorphically — this is called <em>duck typing</em>: "if it walks like a duck and quacks like a duck…".</div>
+
+      <div class="interactive-toy">
+        <h4 style="margin-top:0;">Try it: encapsulation guard</h4>
+        <div class="toy-row">
+          <button class="toy-btn" onclick="bankDemo(50)">Deposit +50</button>
+          <button class="toy-btn" onclick="bankDemo(-20)">Deposit -20 (invalid)</button>
+          <button class="toy-btn" onclick="bankDemo(0,true)">Reset</button>
+        </div>
+        <div class="toy-output" id="toy3out">Balance: 100</div>
+      </div>
+
+      <div class="exercise-box">
+        <h4>Exercise 3.1 — Add a guarded setter</h4>
+        <p>Extend <code>BankAccount</code> with a <code>withdraw(amount)</code> method that only allows withdrawal if <code>amount &lt;= balance</code>, otherwise it should not change the balance.</p>
+        <textarea class="ex-input" id="ex3">def withdraw(self, amount):
+    if 0 < amount <= self.__balance:
+        self.__balance -= amount</textarea>
+        <button class="ex-check-btn" onclick="checkExercise('ex3','ex3fb',['def withdraw','self.__balance','if'])">Check my approach</button>
+        <div class="ex-feedback" id="ex3fb"></div>
+      </div>
+
+      <div class="takeaway-box">
+        <h4>Key takeaways</h4>
+        <ul>
+          <li>Encapsulation controls access to internal state via methods/properties instead of direct attribute access.</li>
+          <li><code>@property</code> lets you expose a method as if it were a plain attribute.</li>
+          <li>Polymorphism lets different classes respond to the same method call in their own way.</li>
+          <li>Python favors duck typing over strict interface declarations.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="quiz" id="quiz3" data-quiz="3">
+      <h3>Checkpoint Quiz — Application</h3>
+      <div class="quiz-progress">4 questions · instant feedback · 70%+ to unlock Module 4</div>
+      <div class="quiz-body"></div>
+      <button class="quiz-submit">Submit answers</button>
+      <div class="quiz-summary"><div class="score"></div><div class="score-msg"></div><button class="unlock-next-btn" data-next="mod4">Unlock Module 4 →</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="module" id="mod4">
+  <div class="wrap">
+    <div class="mod-head"><span class="mod-num">Module 04</span><h2 style="margin:0;">Mastery — Dunder Methods, Composition & Design</h2><span class="mod-diff">Advanced</span></div>
+
+    <div class="section-block">
+      <h3>Dunder methods: hooking into Python's own syntax</h3>
+      <p>"Dunder" (double-underscore) methods let your objects integrate with built-in syntax: printing, comparison, length, arithmetic, and more. You've already met <code>__init__</code> — here are more.</p>
+
+      <pre class="code"><span class="k">class</span> Vector:
+    <span class="k">def</span> <span class="f">__init__</span>(self, x, y):
+        self.x, self.y = x, y
+
+    <span class="k">def</span> <span class="f">__repr__</span>(self):
+        <span class="k">return</span> <span class="s">f"Vector({self.x}, {self.y})"</span>
+
+    <span class="k">def</span> <span class="f">__add__</span>(self, other):
+        <span class="k">return</span> Vector(self.x + other.x, self.y + other.y)
+
+    <span class="k">def</span> <span class="f">__eq__</span>(self, other):
+        <span class="k">return</span> self.x == other.x <span class="k">and</span> self.y == other.y
+
+v1, v2 = Vector(1,2), Vector(3,4)
+<span class="k">print</span>(v1 + v2)     <span class="c"># Vector(4, 6)  — __add__ is called</span>
+<span class="k">print</span>(v1 == v2)    <span class="c"># False          — __eq__ is called</span></pre>
+
+      <table class="compare-table">
+        <tr><th>Dunder method</th><th>Triggered by</th></tr>
+        <tr><td><code>__repr__</code></td><td><code>print(obj)</code>, debugging output</td></tr>
+        <tr><td><code>__add__</code></td><td><code>obj1 + obj2</code></td></tr>
+        <tr><td><code>__eq__</code></td><td><code>obj1 == obj2</code></td></tr>
+        <tr><td><code>__len__</code></td><td><code>len(obj)</code></td></tr>
+        <tr><td><code>__iter__</code></td><td><code>for x in obj</code></td></tr>
+      </table>
+
+      <h4>Composition vs. inheritance</h4>
+      <p><strong>Composition</strong> builds objects out of other objects ("has-a") rather than extending a class ("is-a"). It's often more flexible than deep inheritance chains.</p>
+
+      <pre class="code"><span class="k">class</span> Engine:
+    <span class="k">def</span> <span class="f">start</span>(self):
+        <span class="k">return</span> <span class="s">"Engine roaring"</span>
+
+<span class="k">class</span> Car:                        <span class="c"># Car HAS-A Engine (composition)</span>
+    <span class="k">def</span> <span class="f">__init__</span>(self):
+        self.engine = Engine()
+
+    <span class="k">def</span> <span class="f">start</span>(self):
+        <span class="k">return</span> self.engine.start()</pre>
+
+      <div class="callout analogy"><span class="tag">Analogy</span>Inheritance is like being born into a family — you inherit traits you can't easily swap out. Composition is like hiring a specialist contractor: your <code>Car</code> doesn't need to <em>be</em> an <code>Engine</code>, it just needs <em>to have one</em> — and you can swap in a different engine without redesigning the car.</div>
+
+      <div class="diagram-wrap">
+        <svg viewBox="0 0 560 130" width="100%" height="130" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="40" width="120" height="50" rx="8" fill="none" stroke="var(--teal)"/>
+          <text x="80" y="70" text-anchor="middle" fill="var(--teal)" font-family="monospace" font-size="12">Car</text>
+          <path d="M140 65 L 200 65" stroke="var(--amber)" stroke-width="2" marker-end="url(#a3)"/>
+          <text x="170" y="55" text-anchor="middle" fill="var(--amber)" font-family="monospace" font-size="10">has-a</text>
+          <rect x="205" y="40" width="120" height="50" rx="8" fill="none" stroke="var(--amber)"/>
+          <text x="265" y="70" text-anchor="middle" fill="var(--amber)" font-family="monospace" font-size="12">Engine</text>
+          <rect x="370" y="40" width="120" height="50" rx="8" fill="none" stroke="var(--panel-line)"/>
+          <text x="430" y="70" text-anchor="middle" fill="var(--paper)" font-family="monospace" font-size="12">Vehicle</text>
+          <path d="M430 40 L 430 15 L 490 15" stroke="var(--coral)" stroke-width="2"/>
+          <text x="500" y="18" fill="var(--coral)" font-family="monospace" font-size="10">is-a (inheritance)</text>
+          <defs><marker id="a3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--amber)"/></marker></defs>
+        </svg>
+      </div>
+
+      <h4>Abstract base classes: enforcing a contract</h4>
+      <pre class="code"><span class="k">from</span> abc <span class="k">import</span> ABC, abstractmethod
+
+<span class="k">class</span> Shape(ABC):
+    <span class="k">@abstractmethod</span>
+    <span class="k">def</span> <span class="f">area</span>(self): ...    <span class="c"># subclasses MUST implement this</span>
+
+<span class="k">class</span> Circle(Shape):
+    <span class="k">def</span> <span class="f">__init__</span>(self, r): self.r = r
+    <span class="k">def</span> <span class="f">area</span>(self): <span class="k">return</span> 3.14159 * self.r ** 2
+
+<span class="c"># Shape() -&gt; TypeError: Can't instantiate abstract class</span></pre>
+
+      <div class="callout misconception"><span class="tag">Common misconception</span>"Favor composition over inheritance" doesn't mean inheritance is bad — it means don't reach for inheritance by default. Use inheritance for genuine "is-a" relationships with shared behavior; use composition when you just need to reuse a capability.</div>
+
+      <div class="interactive-toy">
+        <h4 style="margin-top:0;">Try it: vector addition</h4>
+        <div class="toy-row">
+          <button class="toy-btn" onclick="document.getElementById('toy4out').textContent='Vector(1,2) + Vector(3,4) → Vector(4, 6)'">Vector(1,2)+Vector(3,4)</button>
+          <button class="toy-btn" onclick="document.getElementById('toy4out').textContent='Vector(0,0) + Vector(5,-5) → Vector(5, -5)'">Vector(0,0)+Vector(5,-5)</button>
+        </div>
+        <div class="toy-output" id="toy4out">Click to see __add__ in action.</div>
+      </div>
+
+      <div class="exercise-box">
+        <h4>Exercise 4.1 — Implement <code>__len__</code></h4>
+        <p>Write a <code>Playlist</code> class holding a list of songs, implementing <code>__len__</code> so <code>len(playlist)</code> returns the number of songs.</p>
+        <textarea class="ex-input" id="ex4">class Playlist:
+    def __init__(self, songs):
+        self.songs = songs
+
+    def __len__(self):
+        return len(self.songs)</textarea>
+        <button class="ex-check-btn" onclick="checkExercise('ex4','ex4fb',['__len__','self.songs','return len'])">Check my approach</button>
+        <div class="ex-feedback" id="ex4fb"></div>
+      </div>
+
+      <div class="takeaway-box">
+        <h4>Key takeaways</h4>
+        <ul>
+          <li>Dunder methods let your objects hook into Python's built-in syntax (printing, operators, length, iteration).</li>
+          <li>Composition ("has-a") is often more flexible than deep inheritance ("is-a").</li>
+          <li>Abstract base classes enforce that subclasses implement required methods.</li>
+          <li>Good OOP design favors clarity and the right tool for the relationship, not maximal inheritance.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="quiz" id="quiz4" data-quiz="4">
+      <h3>Checkpoint Quiz — Mastery</h3>
+      <div class="quiz-progress">4 questions · instant feedback · 70%+ to unlock the Final Challenge</div>
+      <div class="quiz-body"></div>
+      <button class="quiz-submit">Submit answers</button>
+      <div class="quiz-summary"><div class="score"></div><div class="score-msg"></div><button class="unlock-next-btn" data-next="final">Unlock Final Challenge →</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="module final unlocked" id="final">
+  <div class="wrap">
+    <div class="mod-head"><span class="mod-num">Final</span><h2 style="margin:0;">Practical Challenge, Cheat Sheet & Where to Go Next</h2></div>
+
+    <div class="challenge-box">
+      <h3 style="margin-top:0;">Final Practical Challenge</h3>
+      <p>Design a small library system using everything from this tutorial:</p>
+      <ul>
+        <li>An abstract base class <code>LibraryItem</code> with an abstract method <code>info()</code>.</li>
+        <li>Two subclasses, <code>Book</code> and <code>DVD</code>, each overriding <code>info()</code> (inheritance + polymorphism).</li>
+        <li>A <code>Library</code> class that <em>has-a</em> list of items (composition) with a <code>__len__</code> dunder method.</li>
+        <li>A private <code>__catalog_id</code> attribute on each item, exposed via a read-only <code>@property</code> (encapsulation).</li>
+      </ul>
+      <textarea class="ex-input" id="finalEx" style="min-height:200px" placeholder="from abc import ABC, abstractmethod
+
+class LibraryItem(ABC):
+    ..."></textarea>
+      <button class="ex-check-btn" onclick="checkExercise('finalEx','finalfb',['ABC','abstractmethod','class Book','class DVD','def info','class Library','__len__','property'])">Check my design</button>
+      <div class="ex-feedback" id="finalfb"></div>
+    </div>
+
+    <h3>Cheat Sheet</h3>
+    <div class="cheatsheet">
+      <div class="cheat-card"><h4>Defining a class</h4><code>class Name:<br>&nbsp;&nbsp;def __init__(self, ...): ...</code></div>
+      <div class="cheat-card"><h4>Inheritance</h4><code>class Child(Parent):<br>&nbsp;&nbsp;def method(self):<br>&nbsp;&nbsp;&nbsp;&nbsp;super().method()</code></div>
+      <div class="cheat-card"><h4>Encapsulation</h4><code>self.__private = x<br>@property<br>def private(self): return self.__private</code></div>
+      <div class="cheat-card"><h4>Polymorphism / duck typing</h4><code>for obj in items:<br>&nbsp;&nbsp;obj.speak()  # each type responds differently</code></div>
+      <div class="cheat-card"><h4>Common dunders</h4><code>__init__ __repr__ __eq__<br>__add__ __len__ __iter__</code></div>
+      <div class="cheat-card"><h4>Composition</h4><code>class Car:<br>&nbsp;&nbsp;def __init__(self):<br>&nbsp;&nbsp;&nbsp;&nbsp;self.engine = Engine()</code></div>
+    </div>
+
+    <h3>Summary Notes</h3>
+    <div class="takeaway-box">
+      <ul>
+        <li>Classes are blueprints; objects are instances with their own state.</li>
+        <li>Inheritance models "is-a" relationships and enables code reuse via overriding + <code>super()</code>.</li>
+        <li>Encapsulation protects internal state behind methods/properties.</li>
+        <li>Polymorphism lets different types share one interface — Python leans on duck typing.</li>
+        <li>Dunder methods integrate your classes with Python's own syntax.</li>
+        <li>Composition is often a more flexible alternative to deep inheritance chains.</li>
+      </ul>
+    </div>
+
+    <h3>Continue Learning</h3>
+    <div class="resource-grid">
+      <div class="resource-card"><h4>Books</h4><ul><li>"Fluent Python" — Luciano Ramalho</li><li>"Python Object-Oriented Programming" — Dabbagh & Phillips</li><li>"Clean Code" — Robert C. Martin (design principles)</li></ul></div>
+      <div class="resource-card"><h4>Documentation</h4><ul><li><a href="https://docs.python.org/3/tutorial/classes.html" target="_blank">Python docs: Classes</a></li><li><a href="https://docs.python.org/3/reference/datamodel.html" target="_blank">Python data model (dunder methods)</a></li><li><a href="https://docs.python.org/3/library/abc.html" target="_blank">abc — Abstract Base Classes</a></li></ul></div>
+      <div class="resource-card"><h4>Research & Design Papers</h4><ul><li>Gamma et al., "Design Patterns" (Gang of Four)</li><li>Liskov, "Data Abstraction and Hierarchy" (foundations of the Liskov Substitution Principle)</li></ul></div>
+      <div class="resource-card"><h4>Communities</h4><ul><li>r/learnpython</li><li>Python Discord</li><li>Stack Overflow — [python] [oop] tags</li></ul></div>
+      <div class="resource-card"><h4>Practice Platforms</h4><ul><li>Exercism (Python track)</li><li>LeetCode (design-pattern style problems)</li><li>CodeWars (OOP kata)</li></ul></div>
+      <div class="resource-card"><h4>Search Keywords</h4><ul><li>"Python SOLID principles"</li><li>"Python dataclasses vs classes"</li><li>"Python metaclasses explained"</li><li>"composition over inheritance python"</li></ul></div>
+      <div class="resource-card" style="grid-column:1/-1;"><h4>Prompts for further AI-assisted learning</h4><ul><li>"Explain Python metaclasses with a real-world analogy and a minimal working example."</li><li>"Show me how to refactor this class hierarchy using composition instead of inheritance."</li><li>"Walk me through the SOLID principles using a Python example for each."</li><li>"Compare Python's dataclasses to writing __init__/__repr__/__eq__ by hand."</li></ul></div>
+    </div>
+
+    <button class="print-btn" onclick="window.print()">🖨 Print / Save notes as PDF</button>
+
+    <div class="challenge-box" id="certBox" style="margin-top:40px; text-align:center; display:none;">
+      <h3>🏆 Mastery Certificate Unlocked</h3>
+      <p>You've completed all four modules of <strong>Object Kit: Python OOP</strong>. Nice work.</p>
+    </div>
+  </div>
+</section>
+
+<footer>Object Kit · Interactive Learning Studio · built for hands-on Python mastery</footer>
+
+<script>
+const modeToggle = document.getElementById('modeToggle');
+modeToggle.addEventListener('click', ()=>{
+  document.body.classList.toggle('light');
+  modeToggle.textContent = document.body.classList.contains('light') ? '☀ Light' : '☾ Dark';
+});
+
+const state = { mod1:false, mod2:false, mod3:false, mod4:false };
+function updateProgress(){
+  const done = Object.values(state).filter(Boolean).length;
+  const pct = Math.round(done/4*100);
+  document.getElementById('progressFill').style.width = pct+'%';
+  document.getElementById('pct').textContent = pct+'% complete';
+  if(done===4){ document.getElementById('certBox').style.display='block'; document.querySelector('[data-badge="cert"]').classList.add('earned'); }
+}
+
+const dots = document.querySelectorAll('.mnav-dot');
+dots.forEach(d=>{ d.addEventListener('click', ()=>{ document.getElementById(d.dataset.target).scrollIntoView({behavior:'smooth'}); }); });
+const sections = ['hero','mod1','mod2','mod3','mod4','final'].map(id=>document.getElementById(id));
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      dots.forEach(d=>d.classList.remove('active'));
+      const dot = document.querySelector(`.mnav-dot[data-target="${e.target.id}"]`);
+      if(dot) dot.classList.add('active');
+    }
+  });
+},{threshold:0.4});
+sections.forEach(s=>io.observe(s));
+
+document.getElementById('startBtn').addEventListener('click', ()=>{ document.getElementById('mod1').scrollIntoView({behavior:'smooth'}); });
+
+function unlockModule(id){
+  const el = document.getElementById(id);
+  el.classList.add('unlocked');
+}
+document.querySelectorAll('.unlock-next-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const next = btn.dataset.next;
+    unlockModule(next);
+    document.getElementById(next).scrollIntoView({behavior:'smooth'});
+  });
+});
+
+function checkExercise(inputId, fbId, keywords){
+  const val = document.getElementById(inputId).value;
+  const fb = document.getElementById(fbId);
+  const hits = keywords.filter(k=>val.includes(k));
+  fb.classList.add('show');
+  if(hits.length >= Math.ceil(keywords.length*0.6)){
+    fb.classList.remove('hint'); fb.classList.add('good');
+    fb.textContent = "✓ Looks solid — you've covered the key structural pieces (" + hits.length + "/" + keywords.length + " expected elements found).";
+  } else {
+    fb.classList.remove('good'); fb.classList.add('hint');
+    fb.textContent = "Not quite there yet — check that you've included: " + keywords.filter(k=>!val.includes(k)).join(', ');
+  }
+}
+
+document.querySelectorAll('.toy-btn[data-name]').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const n = btn.dataset.name, b = btn.dataset.breed;
+    document.getElementById('toy1out').textContent =
+`rex = Dog("${n}", "${b}")
+rex.name  -> "${n}"
+rex.breed -> "${b}"
+rex.bark() -> "${n} says Woof!"`;
+  });
+});
+
+let bankBalance = 100;
+function bankDemo(amount, reset){
+  if(reset){ bankBalance = 100; document.getElementById('toy3out').textContent = "Balance reset to 100"; return; }
+  if(amount>0){ bankBalance += amount; document.getElementById('toy3out').textContent = `deposit(${amount}) accepted -> Balance: ${bankBalance}`; }
+  else { document.getElementById('toy3out').textContent = `deposit(${amount}) rejected (amount must be > 0) -> Balance unchanged: ${bankBalance}`; }
+}
+
+const quizData = {
+1:[
+  {q:"What does a class primarily represent in Python?",
+   options:["A single value stored in memory","A blueprint describing attributes and methods for objects","A loop that repeats code","A file on disk"],
+   correct:1,
+   explain:"A class is a blueprint — it defines what data and behavior its objects will have, but doesn't itself hold that data until an object is created."},
+  {q:"What is the purpose of __init__?",
+   options:["It deletes an object","It's called automatically to set up a new object's starting attributes","It converts an object to a string","It defines class-level constants only"],
+   correct:1,
+   explain:"__init__ is the constructor — Python calls it the moment an object is created, so you can initialize its attributes."},
+  {q:"In `def bark(self):`, what does `self` refer to?",
+   options:["A required Python keyword with special syntax meaning","The class itself, not any particular object","The specific object the method is being called on","The parent class"],
+   correct:2,
+   explain:"self is just a (strongly conventional) parameter name referring to the specific instance the method was called on — it's not a reserved keyword."},
+  {q:"Which is true about instance attributes vs class attributes?",
+   options:["Instance attributes are shared by all objects","Class attributes are unique per object","Instance attributes are typically set via self.x in __init__, unique per object","There is no difference in Python"],
+   correct:2,
+   explain:"Instance attributes (self.x = ...) belong to one specific object; class attributes are defined in the class body and shared unless overridden."}
+],
+2:[
+  {q:"What relationship does inheritance model?",
+   options:["\"has-a\"","\"is-a\"","\"uses-a\"","\"knows-a\""],
+   correct:1,
+   explain:"Inheritance models an \"is-a\" relationship: a Dog is an Animal, so it can reuse and extend Animal's behavior."},
+  {q:"What happens when a subclass overrides a parent method?",
+   options:["The parent method is permanently deleted","Python finds the subclass version first, but the parent version still exists and can be reached with super()","Both versions run automatically every time","It causes a compile error"],
+   correct:1,
+   explain:"Overriding doesn't erase the parent's method — it just means the subclass's version is found first. super() lets you still invoke the parent's version explicitly."},
+  {q:"What does super().speak() do inside a subclass method?",
+   options:["Calls a random method","Explicitly calls the parent class's version of speak()","Deletes the current object","Creates a brand-new object"],
+   correct:1,
+   explain:"super() gives you a reference to the parent class so you can call its original implementation, often to extend rather than fully replace it."},
+  {q:"Which best describes Method Resolution Order (MRO)?",
+   options:["The order attributes are printed in","The order Python searches classes (starting from the object's own class upward) to find a method","A random search order","The order classes are imported in a file"],
+   correct:1,
+   explain:"MRO is the order Python walks the class hierarchy — starting with the instance's own class and moving up through its parents — to resolve a method call."}
+],
+3:[
+  {q:"What is the main goal of encapsulation?",
+   options:["Making all code run faster","Bundling data with methods and controlling how that data is accessed/changed","Making every attribute public","Removing the need for classes"],
+   correct:1,
+   explain:"Encapsulation bundles data and behavior together and restricts direct external access, so state changes happen through controlled methods/properties."},
+  {q:"In Python, how is a 'private' attribute typically signaled?",
+   options:["private keyword","A leading underscore or double underscore, by convention/name-mangling","There is no way to signal this","ALL_CAPS naming"],
+   correct:1,
+   explain:"Python uses a leading underscore (convention: 'internal use') or double underscore (name-mangled) rather than a strict private keyword like some other languages."},
+  {q:"What does @property allow you to do?",
+   options:["Make a method callable like a plain attribute (e.g., obj.balance instead of obj.balance())","Turn any class into an abstract class","Automatically inherit from another class","Convert an object into JSON"],
+   correct:0,
+   explain:"@property lets a method be accessed with attribute syntax (no parentheses), commonly used for controlled, read-only access to internal state."},
+  {q:"What is 'duck typing'?",
+   options:["A strict interface requirement enforced at compile time","Treating an object as usable for an operation if it has the right method/attribute, regardless of its actual class","A method for typing faster in Python","A synonym for inheritance"],
+   correct:1,
+   explain:"Duck typing means Python cares about whether an object supports the needed behavior (e.g. has .speak()), not what class it officially belongs to."}
+],
+4:[
+  {q:"What triggers a class's __add__ method?",
+   options:["Calling len(obj)","Using the + operator between two objects, e.g. obj1 + obj2","Printing the object","Comparing two objects with =="],
+   correct:1,
+   explain:"__add__ is invoked automatically when you use the + operator on instances of your class, letting you define custom addition behavior."},
+  {q:"What best distinguishes composition from inheritance?",
+   options:["Composition builds objects out of other objects ('has-a'); inheritance extends a class ('is-a')","They are exactly the same thing","Composition requires an abstract base class","Inheritance can only be used once per program"],
+   correct:0,
+   explain:"Composition ('has-a', e.g. Car has an Engine) builds functionality by holding other objects, while inheritance ('is-a') extends a class hierarchy."},
+  {q:"What happens if you try to instantiate a class with an unimplemented @abstractmethod?",
+   options:["Python silently ignores it","Python raises a TypeError, since the class can't be instantiated","The method runs with default behavior","It only fails at the end of the program"],
+   correct:1,
+   explain:"Abstract base classes with unimplemented @abstractmethod definitions raise a TypeError if you try to instantiate them directly — subclasses must implement the method first."},
+  {q:"Why is 'favor composition over inheritance' good general guidance?",
+   options:["Because inheritance is always wrong","Because composition tends to be more flexible and avoids deep, tangled hierarchies where a genuine 'is-a' relationship doesn't exist","Because composition is faster to type","Because Python doesn't fully support inheritance"],
+   correct:1,
+   explain:"It's guidance, not a hard rule — composition avoids fragile hierarchies when classes don't have a strict 'is-a' relationship, while inheritance still shines for genuine type hierarchies with shared behavior."}
+]
+};
+
+function buildQuiz(qid){
+  const container = document.querySelector(`#quiz${qid} .quiz-body`);
+  const data = quizData[qid];
+  let html = '';
+  data.forEach((item,qi)=>{
+    html += `<div class="q-block" data-qi="${qi}"><div class="q-text">${qi+1}. ${item.q}</div><div class="q-options">`;
+    item.options.forEach((opt,oi)=>{ html += `<div class="q-opt" data-oi="${oi}">${opt}</div>`; });
+    html += `</div><div class="q-explain"></div></div>`;
+  });
+  container.innerHTML = html;
+  container.querySelectorAll('.q-block').forEach((block)=>{
+    block.querySelectorAll('.q-opt').forEach(opt=>{
+      opt.addEventListener('click', ()=>{
+        block.querySelectorAll('.q-opt').forEach(o=>o.classList.remove('selected'));
+        opt.classList.add('selected');
+      });
+    });
+  });
+}
+[1,2,3,4].forEach(buildQuiz);
+
+document.querySelectorAll('.quiz').forEach(quizEl=>{
+  const qid = quizEl.dataset.quiz;
+  const submitBtn = quizEl.querySelector('.quiz-submit');
+  submitBtn.addEventListener('click', ()=>{
+    const data = quizData[qid];
+    let score = 0;
+    quizEl.querySelectorAll('.q-block').forEach((block, qi)=>{
+      const selected = block.querySelector('.q-opt.selected');
+      const explainEl = block.querySelector('.q-explain');
+      const correctIdx = data[qi].correct;
+      block.querySelectorAll('.q-opt').forEach((opt,oi)=>{
+        opt.style.pointerEvents = 'none';
+        if(oi===correctIdx) opt.classList.add('correct');
+        else if(selected && oi===parseInt(selected.dataset.oi)) opt.classList.add('incorrect');
+      });
+      explainEl.classList.add('show');
+      explainEl.textContent = "Why: " + data[qi].explain;
+      if(selected && parseInt(selected.dataset.oi)===correctIdx) score++;
+    });
+    const pct = Math.round(score/data.length*100);
+    const summary = quizEl.querySelector('.quiz-summary');
+    summary.classList.add('show');
+    summary.querySelector('.score').textContent = `${score}/${data.length} (${pct}%)`;
+    const msgEl = summary.querySelector('.score-msg');
+    const unlockBtn = summary.querySelector('.unlock-next-btn');
+    if(pct>=70){
+      msgEl.textContent = "Nice work — you've cleared this checkpoint.";
+      unlockBtn.style.display='inline-block';
+      state['mod'+qid] = true;
+      document.querySelector(`.badge[data-badge="${qid}"]`).classList.add('earned');
+      const dot = document.querySelector(`.mnav-dot[data-target="mod${qid}"]`);
+      if(dot) dot.classList.add('done');
+      updateProgress();
+    } else {
+      msgEl.textContent = "Below 70% — review the module explanations above and try again.";
+      unlockBtn.style.display='none';
+    }
+    submitBtn.style.display='none';
+    quizEl.scrollIntoView({behavior:'smooth', block:'center'});
+  });
+});
+</script>
+</body>
+</html>
