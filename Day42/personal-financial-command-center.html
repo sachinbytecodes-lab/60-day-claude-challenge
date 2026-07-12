@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Command Center — Financial Rhythm for Freelancers</title>
+<style>
+:root{
+  --ink:#10161d;
+  --ink-2:#161e27;
+  --ink-3:#1c2530;
+  --line:#2a3542;
+  --paper:#eee8dd;
+  --paper-dim:#a9aca9;
+  --brass:#c9a24b;
+  --brass-bright:#e3bc63;
+  --teal:#4fb8ae;
+  --teal-dim:#2f6b66;
+  --coral:#d4694f;
+  --good:#5fae7a;
+  --warn:#d9a441;
+  --bad:#c96a5a;
+  --radius:14px;
+  --serif: Georgia, 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', serif;
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --mono: 'SF Mono', 'Consolas', 'Menlo', monospace;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--ink);
+  color:var(--paper);
+  font-family:var(--sans);
+  min-height:100vh;
+  transition:background .4s ease, color .4s ease;
+}
+body.light{
+  --ink:#f7f4ec;
+  --ink-2:#fffdf8;
+  --ink-3:#fbf7ee;
+  --line:#ddd5c2;
+  --paper:#211b12;
+  --paper-dim:#6b6255;
+}
+body.light .accent-line{opacity:.5;}
+
+/* ---------- layout scaffolding ---------- */
+.wrap{max-width:1280px; margin:0 auto; padding:0 28px;}
+img,svg{display:block;}
+
+/* ---------- top bar ---------- */
+.topbar{
+  position:sticky; top:0; z-index:50;
+  background:color-mix(in srgb, var(--ink) 88%, transparent);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-inner{display:flex; align-items:center; justify-content:space-between; height:64px;}
+.brand{display:flex; align-items:center; gap:10px; font-family:var(--serif); font-size:19px; letter-spacing:.02em;}
+.brand-mark{width:26px; height:26px;}
+.topnav{display:flex; gap:4px; flex-wrap:wrap;}
+.topnav button{
+  background:none; border:none; color:var(--paper-dim); font-family:var(--sans);
+  font-size:13px; padding:8px 12px; border-radius:8px; cursor:pointer; letter-spacing:.02em;
+  transition:.2s;
+}
+.topnav button:hover{color:var(--paper); background:var(--ink-3);}
+.topnav button.active{color:var(--brass-bright); background:var(--ink-3);}
+.top-actions{display:flex; gap:8px; align-items:center;}
+.icon-btn{
+  width:36px;height:36px; border-radius:50%; border:1px solid var(--line); background:var(--ink-2);
+  color:var(--paper); display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:15px;
+}
+.icon-btn:hover{border-color:var(--brass);}
+
+/* ---------- hero ---------- */
+.hero{
+  padding:64px 0 40px; position:relative; overflow:hidden;
+  border-bottom:1px solid var(--line);
+}
+.hero-inner{display:grid; grid-template-columns:1.1fr .9fr; gap:40px; align-items:center;}
+.eyebrow{
+  font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--teal); margin-bottom:14px; display:flex; align-items:center; gap:8px;
+}
+.eyebrow::before{content:''; width:20px; height:1px; background:var(--teal);}
+.hero h1{
+  font-family:var(--serif); font-weight:400; font-size:clamp(32px,4.4vw,54px); line-height:1.08;
+  letter-spacing:-.01em; max-width:640px;
+}
+.hero h1 em{font-style:italic; color:var(--brass-bright);}
+.hero p{margin-top:18px; font-size:16px; line-height:1.65; color:var(--paper-dim); max-width:520px;}
+.hero-score{
+  background:var(--ink-2); border:1px solid var(--line); border-radius:var(--radius);
+  padding:26px; position:relative;
+}
+.score-top{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;}
+.score-label{font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--paper-dim);}
+.score-ring-wrap{display:flex; align-items:center; gap:22px;}
+.score-num{font-family:var(--serif); font-size:56px; line-height:1;}
+.score-sub{font-size:12.5px; color:var(--paper-dim); margin-top:6px; max-width:180px; line-height:1.5;}
+.wave-svg{width:100%; height:60px; margin-top:18px; opacity:.85;}
+
+/* ---------- section shell ---------- */
+section.module{padding:52px 0; border-bottom:1px solid var(--line);}
+.module-head{display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:26px; gap:20px; flex-wrap:wrap;}
+.module-head .tag{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--brass); margin-bottom:6px; display:block;}
+.module-head h2{font-family:var(--serif); font-size:28px; font-weight:400;}
+.module-head p.desc{color:var(--paper-dim); font-size:14px; max-width:480px; margin-top:6px; line-height:1.55;}
+
+.grid{display:grid; gap:18px;}
+.grid.cols-4{grid-template-columns:repeat(4,1fr);}
+.grid.cols-3{grid-template-columns:repeat(3,1fr);}
+.grid.cols-2{grid-template-columns:repeat(2,1fr);}
+
+.card{
+  background:var(--ink-2); border:1px solid var(--line); border-radius:var(--radius);
+  padding:20px;
+}
+.card h3{font-family:var(--serif); font-size:16px; font-weight:400; margin-bottom:4px;}
+.card .kpi{font-family:var(--serif); font-size:30px; margin:10px 0 4px;}
+.card .kpi.small{font-size:22px;}
+.trend{font-size:12px; font-family:var(--mono);}
+.trend.up{color:var(--good);}
+.trend.down{color:var(--bad);}
+.muted{color:var(--paper-dim); font-size:12.5px;}
+
+/* buttons/inputs */
+button{font-family:var(--sans);}
+.btn{
+  background:var(--brass); color:#1b1405; border:none; padding:10px 18px; border-radius:8px;
+  font-size:13.5px; font-weight:600; cursor:pointer; letter-spacing:.01em; transition:.2s;
+}
+.btn:hover{background:var(--brass-bright);}
+.btn.ghost{background:none; border:1px solid var(--line); color:var(--paper);}
+.btn.ghost:hover{border-color:var(--brass);}
+.btn.teal{background:var(--teal); color:#062421;}
+.btn.teal:hover{background:#63cbc0;}
+input, select{
+  background:var(--ink-3); border:1px solid var(--line); color:var(--paper);
+  padding:9px 12px; border-radius:8px; font-size:13.5px; font-family:var(--sans); width:100%;
+}
+input:focus, select:focus, button:focus-visible{outline:2px solid var(--teal); outline-offset:1px;}
+label{font-size:12px; color:var(--paper-dim); display:block; margin-bottom:6px; letter-spacing:.02em;}
+.field{margin-bottom:14px;}
+
+table{width:100%; border-collapse:collapse; font-size:13.5px;}
+th{text-align:left; font-family:var(--mono); font-size:10.5px; text-transform:uppercase; letter-spacing:.08em; color:var(--paper-dim); padding:8px 10px; border-bottom:1px solid var(--line);}
+td{padding:10px; border-bottom:1px solid var(--line);}
+tr:last-child td{border-bottom:none;}
+.pill{display:inline-block; padding:3px 10px; border-radius:20px; font-size:11px; font-family:var(--mono);}
+.pill.good{background:rgba(95,174,122,.15); color:var(--good);}
+.pill.warn{background:rgba(217,164,65,.15); color:var(--warn);}
+.pill.bad{background:rgba(201,106,90,.15); color:var(--bad);}
+.pill.info{background:rgba(79,184,174,.15); color:var(--teal);}
+
+.rowform{display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end;}
+.rowform .field{flex:1; min-width:120px; margin-bottom:0;}
+
+.bar-track{height:9px; background:var(--ink-3); border-radius:6px; overflow:hidden; margin-top:8px;}
+.bar-fill{height:100%; border-radius:6px; background:linear-gradient(90deg, var(--teal), var(--brass));}
+
+.insight{
+  border-left:3px solid var(--teal); background:var(--ink-3); padding:14px 16px; border-radius:0 10px 10px 0;
+  font-size:13.5px; line-height:1.6; margin-bottom:10px;
+}
+.insight.warn{border-color:var(--warn);}
+.insight.bad{border-color:var(--bad);}
+.insight b{color:var(--brass-bright);}
+
+footer{padding:50px 0 70px; text-align:center;}
+footer .sig{font-family:var(--serif); font-size:14px; color:var(--paper-dim);}
+
+@media (max-width:900px){
+  .hero-inner{grid-template-columns:1fr;}
+  .grid.cols-4, .grid.cols-3, .grid.cols-2{grid-template-columns:1fr 1fr;}
+  .topnav{display:none;}
+}
+@media (max-width:600px){
+  .grid.cols-4, .grid.cols-3, .grid.cols-2{grid-template-columns:1fr;}
+  .wrap{padding:0 18px;}
+}
+@media print{
+  .topbar,.hero-score .wave-svg,.no-print{display:none !important;}
+  body{background:#fff; color:#111;}
+  .card,.module{border-color:#ccc; break-inside:avoid;}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important; animation:none !important;}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 26 26"><path d="M2 18 Q7 4 13 13 T24 8" fill="none" stroke="#c9a24b" stroke-width="2.2" stroke-linecap="round"/></svg>
+      Command Center
+    </div>
+    <nav class="topnav" id="topnav"></nav>
+    <div class="top-actions">
+      <button class="icon-btn no-print" id="printBtn" title="Print report">⎙</button>
+      <button class="icon-btn no-print" id="themeBtn" title="Toggle light/dark">◐</button>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <div class="eyebrow">Built for multi-stream freelance income</div>
+      <h1>Turn irregular income into a <em>steady rhythm.</em></h1>
+      <p>You've got several income streams and no debt weighing you down — the real challenge is timing. This dashboard reads your cash flow like a waveform: it smooths the peaks and troughs so you always know how many weeks of runway you actually have.</p>
+      <svg class="wave-svg" viewBox="0 0 600 60" preserveAspectRatio="none">
+        <path d="M0 40 Q40 10 80 38 T160 30 T240 45 T320 15 T400 35 T480 20 T560 30 T600 25" fill="none" stroke="#4fb8ae" stroke-width="2" opacity=".5"/>
+        <path d="M0 30 Q100 30 200 30 T400 30 T600 30" fill="none" stroke="#c9a24b" stroke-width="2" stroke-dasharray="1 7" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="hero-score">
+      <div class="score-top">
+        <span class="score-label">Financial Health Score</span>
+        <span class="pill info" id="scoreTrendPill">Updated live</span>
+      </div>
+      <div class="score-ring-wrap">
+        <svg width="110" height="110" viewBox="0 0 110 110">
+          <circle cx="55" cy="55" r="46" fill="none" stroke="#2a3542" stroke-width="9"/>
+          <circle id="scoreRing" cx="55" cy="55" r="46" fill="none" stroke="#c9a24b" stroke-width="9" stroke-linecap="round" stroke-dasharray="289" stroke-dashoffset="289" transform="rotate(-90 55 55)"/>
+        </svg>
+        <div>
+          <div class="score-num" id="scoreNum">--</div>
+          <div class="score-sub" id="scoreSub">Add your income streams below to calculate your score.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- OVERVIEW -->
+  <section class="module" id="overview">
+    <div class="module-head">
+      <div>
+        <span class="tag">01 — Overview</span>
+        <h2>This month at a glance</h2>
+        <p class="desc">A snapshot pulled from every module below. Update your numbers once — everything here recalculates automatically.</p>
+      </div>
+    </div>
+    <div class="grid cols-4" id="overviewCards"></div>
+  </section>
+
+  <!-- INCOME -->
+  <section class="module" id="income">
+    <div class="module-head">
+      <div>
+        <span class="tag">02 — Income Streams</span>
+        <h2>Every stream, one ledger</h2>
+        <p class="desc">Log each client or income source separately so you can see which streams are steady and which are lumpy.</p>
+      </div>
+      <button class="btn" id="addIncomeBtn">+ Add income stream</button>
+    </div>
+    <div class="card" style="margin-bottom:18px;">
+      <table id="incomeTable">
+        <thead><tr><th>Source</th><th>Type</th><th>Monthly avg (₹)</th><th>Reliability</th><th></th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="grid cols-3">
+      <div class="card"><h3>Total monthly income</h3><div class="kpi" id="incomeTotal">₹0</div><div class="muted">Sum of average monthly value per stream</div></div>
+      <div class="card"><h3>Income concentration</h3><div class="kpi small" id="incomeConcentration">--</div><div class="muted" id="incomeConcNote">Share coming from your single largest stream</div></div>
+      <div class="card"><h3>Reliable income</h3><div class="kpi small" id="reliableShare">--</div><div class="muted">Share tagged "steady" vs "variable"</div></div>
+    </div>
+  </section>
+
+  <!-- CASH FLOW -->
+  <section class="module" id="cashflow">
+    <div class="module-head">
+      <div>
+        <span class="tag">03 — Cash Flow &amp; Runway</span>
+        <h2>How long can you go without a new invoice clearing?</h2>
+        <p class="desc">The number that matters most when income is irregular: weeks of runway at current burn rate.</p>
+      </div>
+    </div>
+    <div class="grid cols-3">
+      <div class="card">
+        <div class="field"><label>Current cash on hand (₹)</label><input type="number" id="cashOnHand" value="150000"></div>
+        <div class="field"><label>Average monthly business + personal burn (₹)</label><input type="number" id="monthlyBurn" value="65000"></div>
+        <button class="btn teal" id="calcRunway" style="width:100%;">Recalculate runway</button>
+      </div>
+      <div class="card">
+        <h3>Runway</h3>
+        <div class="kpi" id="runwayWeeks">-- weeks</div>
+        <div class="bar-track"><div class="bar-fill" id="runwayBar" style="width:0%"></div></div>
+        <div class="muted" style="margin-top:8px;" id="runwayNote">Add your figures to calculate.</div>
+      </div>
+      <div class="card">
+        <h3>Waveform: income vs burn</h3>
+        <svg viewBox="0 0 260 100" style="width:100%;height:110px;" id="cashflowChart"></svg>
+        <div class="muted">Illustrative pattern based on your reliability mix</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPENSES / BUDGET -->
+  <section class="module" id="expenses">
+    <div class="module-head">
+      <div>
+        <span class="tag">04 — Expenses &amp; Budget</span>
+        <h2>Business vs. personal, side by side</h2>
+        <p class="desc">Freelancers blur the line fastest here. Keep the split visible so tax season and pricing decisions stay sane.</p>
+      </div>
+      <button class="btn" id="addExpenseBtn">+ Add expense</button>
+    </div>
+    <div class="grid cols-2">
+      <div class="card">
+        <table id="expenseTable">
+          <thead><tr><th>Category</th><th>Type</th><th>Amount (₹)</th><th></th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Business vs personal split</h3>
+        <svg viewBox="0 0 200 200" style="width:180px;height:180px;margin:10px auto;" id="expenseDonut"></svg>
+        <div style="display:flex; gap:16px; justify-content:center; font-size:12.5px;">
+          <span><span style="color:var(--teal);">●</span> Business <span id="bizPct">0%</span></span>
+          <span><span style="color:var(--brass);">●</span> Personal <span id="persPct">0%</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAX & SAVINGS RESERVE -->
+  <section class="module" id="savings">
+    <div class="module-head">
+      <div>
+        <span class="tag">05 — Tax Reserve &amp; Savings</span>
+        <h2>Pay future-you first</h2>
+        <p class="desc">Set aside a percentage of every invoice before it reaches your spending account.</p>
+      </div>
+    </div>
+    <div class="grid cols-3">
+      <div class="card">
+        <div class="field"><label>Tax set-aside rate (%)</label><input type="number" id="taxRate" value="25"></div>
+        <div class="field"><label>Target emergency fund (months of burn)</label><input type="number" id="efMonths" value="6"></div>
+        <button class="btn" id="calcSavings">Update</button>
+      </div>
+      <div class="card">
+        <h3>Recommended tax reserve / month</h3>
+        <div class="kpi small" id="taxReserveAmt">₹0</div>
+        <div class="muted">Move this out automatically when you invoice</div>
+      </div>
+      <div class="card">
+        <h3>Emergency fund progress</h3>
+        <div class="kpi small" id="efTarget">₹0 target</div>
+        <div class="bar-track"><div class="bar-fill" id="efBar" style="width:0%"></div></div>
+        <div class="muted" id="efNote">Based on cash on hand vs target</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INVESTMENTS -->
+  <section class="module" id="investments">
+    <div class="module-head">
+      <div>
+        <span class="tag">06 — Investments</span>
+        <h2>Portfolio pulse</h2>
+        <p class="desc">Track what you hold and how it's allocated — no live market data, just your own running record.</p>
+      </div>
+      <button class="btn" id="addInvestBtn">+ Add holding</button>
+    </div>
+    <div class="grid cols-2">
+      <div class="card">
+        <table id="investTable">
+          <thead><tr><th>Holding</th><th>Type</th><th>Value (₹)</th><th></th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <div style="margin-top:12px;" class="muted">Total portfolio value: <b id="investTotal" style="color:var(--brass-bright)">₹0</b></div>
+      </div>
+      <div class="card">
+        <h3>Allocation</h3>
+        <svg viewBox="0 0 200 200" style="width:180px;height:180px;margin:10px auto;" id="investDonut"></svg>
+        <div id="investLegend" style="font-size:12px; display:flex; flex-wrap:wrap; gap:10px; justify-content:center;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GOALS -->
+  <section class="module" id="goals">
+    <div class="module-head">
+      <div>
+        <span class="tag">07 — Goals</span>
+        <h2>What you're building toward</h2>
+        <p class="desc">Track savings targets — a new laptop, a slow-season buffer, a down payment.</p>
+      </div>
+      <button class="btn" id="addGoalBtn">+ Add goal</button>
+    </div>
+    <div class="grid cols-3" id="goalsGrid"></div>
+  </section>
+
+  <!-- WHAT-IF SIMULATOR -->
+  <section class="module" id="simulator">
+    <div class="module-head">
+      <div>
+        <span class="tag">08 — What-If Simulator</span>
+        <h2>Stress-test a slow month</h2>
+        <p class="desc">Model what happens if a client pauses, a project delays, or you raise your rates.</p>
+      </div>
+    </div>
+    <div class="grid cols-2">
+      <div class="card">
+        <div class="field"><label>Lose income from a stream (% of total income)</label><input type="number" id="simLoss" value="30"></div>
+        <div class="field"><label>Cut discretionary spending by (%)</label><input type="number" id="simCut" value="10"></div>
+        <div class="field"><label>Raise rates across remaining work by (%)</label><input type="number" id="simRaise" value="0"></div>
+        <button class="btn teal" id="runSim" style="width:100%;">Run simulation</button>
+      </div>
+      <div class="card">
+        <h3>Resulting runway</h3>
+        <div class="kpi" id="simRunway">-- weeks</div>
+        <div class="muted" id="simVerdict">Run a simulation to see the impact.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALCULATORS -->
+  <section class="module" id="calculators">
+    <div class="module-head">
+      <div>
+        <span class="tag">09 — Calculators</span>
+        <h2>Pricing &amp; planning tools</h2>
+        <p class="desc">Quick math for the decisions freelancers make constantly.</p>
+      </div>
+    </div>
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>Freelance day-rate calculator</h3>
+        <div class="rowform">
+          <div class="field"><label>Target annual income (₹)</label><input type="number" id="targetIncome" value="1200000"></div>
+          <div class="field"><label>Billable days / year</label><input type="number" id="billableDays" value="150"></div>
+        </div>
+        <button class="btn ghost" id="calcRate" style="margin-top:12px;">Calculate</button>
+        <div class="kpi small" style="margin-top:10px;" id="dayRate">₹0 / day</div>
+      </div>
+      <div class="card">
+        <h3>Project break-even calculator</h3>
+        <div class="rowform">
+          <div class="field"><label>Project fee (₹)</label><input type="number" id="projFee" value="80000"></div>
+          <div class="field"><label>Estimated hours</label><input type="number" id="projHours" value="40"></div>
+        </div>
+        <button class="btn ghost" id="calcBreakeven" style="margin-top:12px;">Calculate</button>
+        <div class="kpi small" style="margin-top:10px;" id="hourlyEffective">₹0 / hour</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSIGHTS -->
+  <section class="module" id="insights">
+    <div class="module-head">
+      <div>
+        <span class="tag">10 — AI Insights</span>
+        <h2>Recommendations based on your numbers</h2>
+        <p class="desc">Generated from what you've entered above — refresh anytime after updating your data.</p>
+      </div>
+      <button class="btn ghost" id="refreshInsights">Refresh insights</button>
+    </div>
+    <div id="insightsList"></div>
+  </section>
+
+  <!-- TIPS & CHECKLIST -->
+  <section class="module" id="tips">
+    <div class="module-head">
+      <div>
+        <span class="tag">11 — Tips, Checklist &amp; Resources</span>
+        <h2>Financial literacy, freelancer edition</h2>
+      </div>
+    </div>
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>Monthly checklist</h3>
+        <div id="checklist"></div>
+      </div>
+      <div class="card">
+        <h3>Prompts to ask an AI assistant</h3>
+        <ul style="padding-left:18px; font-size:13.5px; line-height:2; color:var(--paper-dim);">
+          <li>"Review my last 3 months of income streams — which one should I try to grow, and why?"</li>
+          <li>"Given my burn rate and runway, is now a good time to raise my rates?"</li>
+          <li>"Help me draft a late-invoice follow-up email for a client 20 days overdue."</li>
+          <li>"Compare a SIP vs lump-sum approach for my monthly surplus."</li>
+          <li>"What business expenses am I likely under-claiming as a freelancer?"</li>
+        </ul>
+        <h3 style="margin-top:18px;">Resources</h3>
+        <ul style="padding-left:18px; font-size:13.5px; line-height:2; color:var(--paper-dim);">
+          <li>Local tax authority's self-employed/presumptive taxation guide</li>
+          <li>A dedicated business bank account, separate from personal</li>
+          <li>Invoicing tool with automatic payment reminders</li>
+          <li>A CA or tax advisor for quarterly advance-tax check-ins</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="sig">Personal Financial Command Center — your data stays in this browser (localStorage), nowhere else.</div>
+  <button class="btn ghost no-print" id="resetAll" style="margin-top:16px;">Reset all data</button>
+</footer>
+
+<script>
+(function(){
+'use strict';
+
+/* ---------------- state ---------------- */
+const DEFAULT_STATE = {
+  income: [
+    {source:'Retainer — Studio Alpha', type:'Retainer', amount:45000, reliability:'steady'},
+    {source:'Project — Nimbus App', type:'Project', amount:60000, reliability:'variable'},
+    {source:'Consulting — hourly', type:'Hourly', amount:25000, reliability:'variable'},
+  ],
+  expenses: [
+    {category:'Software subscriptions', type:'business', amount:6000},
+    {category:'Coworking space', type:'business', amount:9000},
+    {category:'Rent', type:'personal', amount:25000},
+    {category:'Groceries & living', type:'personal', amount:18000},
+  ],
+  investments: [
+    {name:'Equity Mutual Funds (SIP)', type:'Equity', value:220000},
+    {name:'PPF', type:'Debt/Fixed', value:150000},
+    {name:'Direct Stocks', type:'Equity', value:90000},
+    {name:'Emergency FD', type:'Cash', value:100000},
+  ],
+  goals: [
+    {name:'6-month emergency buffer', target:390000, saved:150000},
+    {name:'New workstation', target:120000, saved:40000},
+    {name:'Annual retreat / learning fund', target:60000, saved:15000},
+  ],
+  cash: {cashOnHand:150000, monthlyBurn:65000, taxRate:25, efMonths:6},
+  checklist: [
+    {label:'Reconcile all invoices sent vs paid', done:false},
+    {label:'Move tax set-aside % to separate account', done:false},
+    {label:'Review subscriptions for unused tools', done:false},
+    {label:'Top up SIP / investment contribution', done:false},
+    {label:'Chase any invoice overdue 15+ days', done:false},
+  ],
+  theme:'dark'
+};
+
+let state = load();
+
+function load(){
+  try{
+    const raw = localStorage.getItem('pfcc_state_v1');
+    if(raw) return JSON.parse(raw);
+  }catch(e){}
+  return JSON.parse(JSON.stringify(DEFAULT_STATE));
+}
+function save(){
+  localStorage.setItem('pfcc_state_v1', JSON.stringify(state));
+}
+
+/* ---------------- nav ---------------- */
+const sections = [
+  ['overview','Overview'],['income','Income'],['cashflow','Cash Flow'],['expenses','Expenses'],
+  ['savings','Tax & Savings'],['investments','Investments'],['goals','Goals'],
+  ['simulator','What-If'],['calculators','Calculators'],['insights','Insights'],['tips','Tips']
+];
+const topnav = document.getElementById('topnav');
+sections.forEach(([id,label])=>{
+  const b = document.createElement('button');
+  b.textContent = label;
+  b.onclick = ()=>document.getElementById(id).scrollIntoView({behavior:'smooth'});
+  b.dataset.id = id;
+  topnav.appendChild(b);
+});
+const navButtons = [...topnav.children];
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navButtons.forEach(b=>b.classList.toggle('active', b.dataset.id===e.target.id));
+    }
+  });
+},{rootMargin:'-40% 0px -50% 0px'});
+sections.forEach(([id])=>io.observe(document.getElementById(id)));
+
+/* ---------------- theme ---------------- */
+function applyTheme(){
+  document.body.classList.toggle('light', state.theme==='light');
+}
+document.getElementById('themeBtn').onclick = ()=>{
+  state.theme = state.theme==='light' ? 'dark' : 'light';
+  applyTheme(); save();
+};
+document.getElementById('printBtn').onclick = ()=>window.print();
+applyTheme();
+
+/* ---------------- helpers ---------------- */
+const fmt = n => '₹' + Math.round(n).toLocaleString('en-IN');
+function el(tag, cls, html){ const e=document.createElement(tag); if(cls) e.className=cls; if(html!==undefined) e.innerHTML=html; return e; }
+
+/* ---------------- INCOME ---------------- */
+function renderIncome(){
+  const tbody = document.querySelector('#incomeTable tbody');
+  tbody.innerHTML='';
+  state.income.forEach((row,i)=>{
+    const tr = el('tr');
+    tr.innerHTML = `
+      <td><input data-i="${i}" data-f="source" value="${row.source}" style="min-width:160px"></td>
+      <td>
+        <select data-i="${i}" data-f="type">
+          ${['Retainer','Project','Hourly','Royalty','Other'].map(t=>`<option ${t===row.type?'selected':''}>${t}</option>`).join('')}
+        </select>
+      </td>
+      <td><input type="number" data-i="${i}" data-f="amount" value="${row.amount}" style="max-width:120px"></td>
+      <td>
+        <select data-i="${i}" data-f="reliability">
+          <option value="steady" ${row.reliability==='steady'?'selected':''}>Steady</option>
+          <option value="variable" ${row.reliability==='variable'?'selected':''}>Variable</option>
+        </select>
+      </td>
+      <td><button class="btn ghost" data-del="${i}" style="padding:6px 10px;">✕</button></td>
+    `;
+    tbody.appendChild(tr);
+  });
+  tbody.querySelectorAll('input,select').forEach(inp=>{
+    inp.onchange = ()=>{
+      const i = +inp.dataset.i, f = inp.dataset.f;
+      state.income[i][f] = f==='amount' ? (+inp.value||0) : inp.value;
+      save(); recalcAll();
+    };
+  });
+  tbody.querySelectorAll('[data-del]').forEach(btn=>{
+    btn.onclick = ()=>{ state.income.splice(+btn.dataset.del,1); save(); renderIncome(); recalcAll(); };
+  });
+
+  const total = state.income.reduce((s,r)=>s+(+r.amount||0),0);
+  document.getElementById('incomeTotal').textContent = fmt(total);
+  const max = Math.max(0,...state.income.map(r=>+r.amount||0));
+  document.getElementById('incomeConcentration').textContent = total? Math.round(max/total*100)+'%' : '--';
+  const steadyTotal = state.income.filter(r=>r.reliability==='steady').reduce((s,r)=>s+(+r.amount||0),0);
+  document.getElementById('reliableShare').textContent = total? Math.round(steadyTotal/total*100)+'%' : '--';
+  return total;
+}
+document.getElementById('addIncomeBtn').onclick = ()=>{
+  state.income.push({source:'New stream', type:'Project', amount:0, reliability:'variable'});
+  save(); renderIncome(); recalcAll();
+};
+
+/* ---------------- EXPENSES ---------------- */
+function renderExpenses(){
+  const tbody = document.querySelector('#expenseTable tbody');
+  tbody.innerHTML='';
+  state.expenses.forEach((row,i)=>{
+    const tr = el('tr');
+    tr.innerHTML = `
+      <td><input data-i="${i}" data-f="category" value="${row.category}" style="min-width:140px"></td>
+      <td>
+        <select data-i="${i}" data-f="type">
+          <option value="business" ${row.type==='business'?'selected':''}>Business</option>
+          <option value="personal" ${row.type==='personal'?'selected':''}>Personal</option>
+        </select>
+      </td>
+      <td><input type="number" data-i="${i}" data-f="amount" value="${row.amount}" style="max-width:120px"></td>
+      <td><button class="btn ghost" data-del="${i}" style="padding:6px 10px;">✕</button></td>
+    `;
+    tbody.appendChild(tr);
+  });
+  tbody.querySelectorAll('input,select').forEach(inp=>{
+    inp.onchange = ()=>{
+      const i=+inp.dataset.i, f=inp.dataset.f;
+      state.expenses[i][f] = f==='amount' ? (+inp.value||0) : inp.value;
+      save(); recalcAll();
+    };
+  });
+  tbody.querySelectorAll('[data-del]').forEach(btn=>{
+    btn.onclick=()=>{ state.expenses.splice(+btn.dataset.del,1); save(); renderExpenses(); recalcAll(); };
+  });
+
+  const biz = state.expenses.filter(r=>r.type==='business').reduce((s,r)=>s+(+r.amount||0),0);
+  const pers = state.expenses.filter(r=>r.type==='personal').reduce((s,r)=>s+(+r.amount||0),0);
+  const tot = biz+pers;
+  document.getElementById('bizPct').textContent = tot? Math.round(biz/tot*100)+'%':'0%';
+  document.getElementById('persPct').textContent = tot? Math.round(pers/tot*100)+'%':'0%';
+  drawDonut('expenseDonut', [
+    {label:'Business', value:biz, color:'#4fb8ae'},
+    {label:'Personal', value:pers, color:'#c9a24b'}
+  ]);
+  return tot;
+}
+document.getElementById('addExpenseBtn').onclick = ()=>{
+  state.expenses.push({category:'New expense', type:'personal', amount:0});
+  save(); renderExpenses(); recalcAll();
+};
+
+/* ---------------- INVESTMENTS ---------------- */
+function renderInvestments(){
+  const tbody = document.querySelector('#investTable tbody');
+  tbody.innerHTML='';
+  state.investments.forEach((row,i)=>{
+    const tr = el('tr');
+    tr.innerHTML = `
+      <td><input data-i="${i}" data-f="name" value="${row.name}" style="min-width:140px"></td>
+      <td>
+        <select data-i="${i}" data-f="type">
+          ${['Equity','Debt/Fixed','Cash','Gold','Real Estate','Crypto','Other'].map(t=>`<option ${t===row.type?'selected':''}>${t}</option>`).join('')}
+        </select>
+      </td>
+      <td><input type="number" data-i="${i}" data-f="value" value="${row.value}" style="max-width:120px"></td>
+      <td><button class="btn ghost" data-del="${i}" style="padding:6px 10px;">✕</button></td>
+    `;
+    tbody.appendChild(tr);
+  });
+  tbody.querySelectorAll('input,select').forEach(inp=>{
+    inp.onchange=()=>{
+      const i=+inp.dataset.i, f=inp.dataset.f;
+      state.investments[i][f] = f==='value' ? (+inp.value||0) : inp.value;
+      save(); recalcAll();
+    };
+  });
+  tbody.querySelectorAll('[data-del]').forEach(btn=>{
+    btn.onclick=()=>{ state.investments.splice(+btn.dataset.del,1); save(); renderInvestments(); recalcAll(); };
+  });
+
+  const total = state.investments.reduce((s,r)=>s+(+r.value||0),0);
+  document.getElementById('investTotal').textContent = fmt(total);
+  const byType = {};
+  state.investments.forEach(r=>{ byType[r.type]=(byType[r.type]||0)+(+r.value||0); });
+  const palette = ['#4fb8ae','#c9a24b','#d4694f','#8a9bd6','#7fcf9d','#c98acb'];
+  const segs = Object.entries(byType).map(([label,value],i)=>({label,value,color:palette[i%palette.length]}));
+  drawDonut('investDonut', segs);
+  const legend = document.getElementById('investLegend');
+  legend.innerHTML = segs.map(s=>`<span><span style="color:${s.color}">●</span> ${s.label} ${total? Math.round(s.value/total*100):0}%</span>`).join('');
+  return total;
+}
+document.getElementById('addInvestBtn').onclick = ()=>{
+  state.investments.push({name:'New holding', type:'Other', value:0});
+  save(); renderInvestments(); recalcAll();
+};
+
+/* ---------------- GOALS ---------------- */
+function renderGoals(){
+  const grid = document.getElementById('goalsGrid');
+  grid.innerHTML='';
+  state.goals.forEach((g,i)=>{
+    const pct = g.target? Math.min(100, Math.round(g.saved/g.target*100)) : 0;
+    const card = el('div','card');
+    card.innerHTML = `
+      <h3>${g.name}</h3>
+      <div class="muted">${fmt(g.saved)} of ${fmt(g.target)}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>
+      <div class="muted" style="margin-top:6px;">${pct}% funded</div>
+      <div class="rowform" style="margin-top:12px;">
+        <div class="field"><label>Saved so far</label><input type="number" data-i="${i}" data-f="saved" value="${g.saved}"></div>
+        <div class="field"><label>Target</label><input type="number" data-i="${i}" data-f="target" value="${g.target}"></div>
+      </div>
+      <button class="btn ghost" data-del="${i}" style="margin-top:10px;">Remove goal</button>
+    `;
+    grid.appendChild(card);
+  });
+  grid.querySelectorAll('input').forEach(inp=>{
+    inp.onchange=()=>{
+      const i=+inp.dataset.i, f=inp.dataset.f;
+      state.goals[i][f]=+inp.value||0;
+      save(); renderGoals(); recalcAll();
+    };
+  });
+  grid.querySelectorAll('[data-del]').forEach(btn=>{
+    btn.onclick=()=>{ state.goals.splice(+btn.dataset.del,1); save(); renderGoals(); };
+  });
+}
+document.getElementById('addGoalBtn').onclick=()=>{
+  state.goals.push({name:'New goal', target:100000, saved:0});
+  save(); renderGoals();
+};
+
+/* ---------------- CASH FLOW / RUNWAY ---------------- */
+function calcRunway(){
+  const cash = +document.getElementById('cashOnHand').value || 0;
+  const burn = +document.getElementById('monthlyBurn').value || 1;
+  state.cash.cashOnHand = cash; state.cash.monthlyBurn = burn; save();
+  const weeks = (cash/burn)*4.33;
+  document.getElementById('runwayWeeks').textContent = weeks.toFixed(1)+' weeks';
+  const pct = Math.min(100, weeks/26*100); // 26 weeks = full bar
+  document.getElementById('runwayBar').style.width = pct+'%';
+  let note, cls;
+  if(weeks < 4){note='Critical — less than a month of runway. Prioritize collections.'; cls='bad';}
+  else if(weeks < 12){note='Tight. Build toward at least 12 weeks of runway.'; cls='warn';}
+  else {note='Healthy runway for irregular-income work.'; cls='good';}
+  document.getElementById('runwayNote').textContent = note;
+  drawCashflowChart();
+  return weeks;
+}
+document.getElementById('calcRunway').onclick = ()=>{ calcRunway(); recalcAll(); };
+
+function drawCashflowChart(){
+  const svg = document.getElementById('cashflowChart');
+  const steadyShare = (function(){
+    const total = state.income.reduce((s,r)=>s+(+r.amount||0),0);
+    const steady = state.income.filter(r=>r.reliability==='steady').reduce((s,r)=>s+(+r.amount||0),0);
+    return total? steady/total : 0.3;
+  })();
+  const amp = 30*(1-steadyShare) + 4;
+  let raw = [], smooth=[];
+  for(let x=0;x<=260;x+=13){
+    const y = 50 + Math.sin(x/22)*amp*0.6 + Math.sin(x/9)*amp*0.4*Math.random();
+    raw.push([x,y]);
+    smooth.push([x, 50]);
+  }
+  const path1 = 'M'+raw.map(p=>p.join(',')).join(' L');
+  const path2 = 'M'+smooth.map(p=>p.join(',')).join(' L');
+  svg.innerHTML = `
+    <path d="${path1}" fill="none" stroke="#d4694f" stroke-width="2" opacity=".8"/>
+    <path d="${path2}" fill="none" stroke="#4fb8ae" stroke-width="2" stroke-dasharray="2 5"/>
+  `;
+}
+
+/* ---------------- SAVINGS / TAX ---------------- */
+function calcSavings(){
+  const totalIncome = state.income.reduce((s,r)=>s+(+r.amount||0),0);
+  const rate = +document.getElementById('taxRate').value || 0;
+  const efMonths = +document.getElementById('efMonths').value || 6;
+  state.cash.taxRate = rate; state.cash.efMonths = efMonths; save();
+  const reserve = totalIncome * rate/100;
+  document.getElementById('taxReserveAmt').textContent = fmt(reserve);
+  const burn = +document.getElementById('monthlyBurn').value || state.cash.monthlyBurn || 0;
+  const target = burn*efMonths;
+  const cash = +document.getElementById('cashOnHand').value || state.cash.cashOnHand || 0;
+  document.getElementById('efTarget').textContent = fmt(target)+' target';
+  const pct = target? Math.min(100, Math.round(cash/target*100)) : 0;
+  document.getElementById('efBar').style.width = pct+'%';
+  document.getElementById('efNote').textContent = pct+'% of target funded';
+}
+document.getElementById('calcSavings').onclick = ()=>{ calcSavings(); recalcAll(); };
+
+/* ---------------- SIMULATOR ---------------- */
+document.getElementById('runSim').onclick = ()=>{
+  const loss = +document.getElementById('simLoss').value||0;
+  const cut = +document.getElementById('simCut').value||0;
+  const raise = +document.getElementById('simRaise').value||0;
+  const totalIncome = state.income.reduce((s,r)=>s+(+r.amount||0),0);
+  const cash = +document.getElementById('cashOnHand').value || state.cash.cashOnHand;
+  const burn = +document.getElementById('monthlyBurn').value || state.cash.monthlyBurn;
+
+  const newIncome = totalIncome*(1-loss/100)*(1+raise/100);
+  const discretionary = state.expenses.filter(e=>e.type==='personal').reduce((s,r)=>s+(+r.amount||0),0);
+  const newBurn = Math.max(1, burn - discretionary*(cut/100));
+  const netMonthly = newIncome - newBurn;
+  const weeks = netMonthly >= 0 ? 999 : (cash/Math.abs(netMonthly))*4.33;
+
+  document.getElementById('simRunway').textContent = netMonthly>=0 ? 'Sustainable ∞' : weeks.toFixed(1)+' weeks';
+  let verdict;
+  if(netMonthly>=0) verdict = 'Even after the loss, your adjusted income covers expenses. You would stay cash-flow positive.';
+  else if(weeks>12) verdict = 'You would run a deficit, but your runway holds for 12+ weeks — manageable if the situation resolves.';
+  else verdict = 'This scenario drains your runway fast. Consider a bigger expense cut or a rate increase now, before it happens.';
+  document.getElementById('simVerdict').textContent = verdict;
+};
+
+/* ---------------- CALCULATORS ---------------- */
+document.getElementById('calcRate').onclick = ()=>{
+  const target = +document.getElementById('targetIncome').value||0;
+  const days = +document.getElementById('billableDays').value||1;
+  document.getElementById('dayRate').textContent = fmt(target/days)+' / day';
+};
+document.getElementById('calcBreakeven').onclick = ()=>{
+  const fee = +document.getElementById('projFee').value||0;
+  const hours = +document.getElementById('projHours').value||1;
+  document.getElementById('hourlyEffective').textContent = fmt(fee/hours)+' / hour';
+};
+
+/* ---------------- DONUT DRAWING (pure SVG, no libs) ---------------- */
+function drawDonut(id, segs){
+  const svg = document.getElementById(id);
+  const total = segs.reduce((s,x)=>s+x.value,0);
+  if(!total){ svg.innerHTML = `<circle cx="100" cy="100" r="70" fill="none" stroke="#2a3542" stroke-width="26"/>`; return; }
+  let angle = -90;
+  const cx=100, cy=100, r=70;
+  let paths = '';
+  segs.forEach(seg=>{
+    const frac = seg.value/total;
+    const sweep = frac*360;
+    const large = sweep>180?1:0;
+    const startX = cx + r*Math.cos(angle*Math.PI/180);
+    const startY = cy + r*Math.sin(angle*Math.PI/180);
+    const endAngle = angle+sweep;
+    const endX = cx + r*Math.cos(endAngle*Math.PI/180);
+    const endY = cy + r*Math.sin(endAngle*Math.PI/180);
+    paths += `<path d="M${startX.toFixed(2)},${startY.toFixed(2)} A${r},${r} 0 ${large} 1 ${endX.toFixed(2)},${endY.toFixed(2)}" fill="none" stroke="${seg.color}" stroke-width="26"/>`;
+    angle = endAngle;
+  });
+  svg.innerHTML = paths;
+}
+
+/* ---------------- CHECKLIST ---------------- */
+function renderChecklist(){
+  const wrap = document.getElementById('checklist');
+  wrap.innerHTML='';
+  state.checklist.forEach((item,i)=>{
+    const row = el('div');
+    row.style.cssText='display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13.5px;';
+    row.innerHTML = `<input type="checkbox" ${item.done?'checked':''} data-i="${i}" style="width:16px;height:16px;"> <span style="${item.done?'text-decoration:line-through;color:var(--paper-dim);':''}">${item.label}</span>`;
+    wrap.appendChild(row);
+  });
+  wrap.querySelectorAll('input[type=checkbox]').forEach(cb=>{
+    cb.onchange = ()=>{ state.checklist[+cb.dataset.i].done = cb.checked; save(); renderChecklist(); };
+  });
+}
+
+/* ---------------- INSIGHTS ---------------- */
+function generateInsights(){
+  const list = document.getElementById('insightsList');
+  const totalIncome = state.income.reduce((s,r)=>s+(+r.amount||0),0);
+  const maxStream = Math.max(0,...state.income.map(r=>+r.amount||0));
+  const concentration = totalIncome? maxStream/totalIncome : 0;
+  const weeks = calcRunwaySilent();
+  const biz = state.expenses.filter(r=>r.type==='business').reduce((s,r)=>s+(+r.amount||0),0);
+  const pers = state.expenses.filter(r=>r.type==='personal').reduce((s,r)=>s+(+r.amount||0),0);
+  const investTotal = state.investments.reduce((s,r)=>s+(+r.value||0),0);
+  const equityShare = investTotal? state.investments.filter(r=>r.type==='Equity').reduce((s,r)=>s+(+r.value||0),0)/investTotal : 0;
+
+  const insights = [];
+  if(concentration > 0.5){
+    insights.push({cls:'warn', html:`<b>Client concentration risk:</b> one stream makes up ${Math.round(concentration*100)}% of your income. Losing it would hit hard — worth pitching 1–2 new clients this quarter to diversify.`});
+  } else {
+    insights.push({cls:'', html:`<b>Well-diversified income:</b> no single stream dominates your revenue, which is exactly the resilience irregular income needs.`});
+  }
+  if(weeks < 8){
+    insights.push({cls:'bad', html:`<b>Thin runway:</b> at ${weeks.toFixed(1)} weeks, a slow month could get tight fast. Prioritize invoicing outstanding work and trimming discretionary spend.`});
+  } else {
+    insights.push({cls:'', html:`<b>Solid runway:</b> ${weeks.toFixed(1)} weeks of buffer gives you room to be selective about the next project you take on.`});
+  }
+  if(pers > biz*1.5 && biz>0){
+    insights.push({cls:'', html:`<b>Personal spend outweighs business spend</b> ${(pers/biz).toFixed(1)}x. Normal for most freelancers — just make sure the tax set-aside is coming off gross, not what's left after personal spending.`});
+  }
+  if(equityShare < 0.3 && investTotal>0){
+    insights.push({cls:'warn', html:`<b>Conservative portfolio:</b> only ${Math.round(equityShare*100)}% is in equity. Given no debt and freelance income, consider whether more growth exposure fits your timeline.`});
+  } else if(investTotal>0){
+    insights.push({cls:'', html:`<b>Growth-oriented allocation:</b> ${Math.round(equityShare*100)}% in equity. Reasonable given you carry no debt — just keep the emergency fund topped up separately.`});
+  }
+  const goalsFunded = state.goals.filter(g=>g.target && g.saved/g.target>=1).length;
+  insights.push({cls:'', html:`<b>Goals:</b> ${goalsFunded} of ${state.goals.length} goals fully funded. Keep automatic transfers running toward the rest.`});
+
+  list.innerHTML='';
+  insights.forEach(ins=>{
+    const d = el('div', 'insight'+(ins.cls?' '+ins.cls:''), ins.html);
+    list.appendChild(d);
+  });
+}
+document.getElementById('refreshInsights').onclick = generateInsights;
+
+function calcRunwaySilent(){
+  const cash = +document.getElementById('cashOnHand').value || state.cash.cashOnHand || 0;
+  const burn = +document.getElementById('monthlyBurn').value || state.cash.monthlyBurn || 1;
+  return (cash/burn)*4.33;
+}
+
+/* ---------------- OVERVIEW + SCORE ---------------- */
+function computeHealthScore(){
+  const totalIncome = state.income.reduce((s,r)=>s+(+r.amount||0),0);
+  const maxStream = Math.max(0,...state.income.map(r=>+r.amount||0));
+  const concentration = totalIncome? maxStream/totalIncome : 1;
+  const weeks = calcRunwaySilent();
+  const investTotal = state.investments.reduce((s,r)=>s+(+r.value||0),0);
+  const burn = +document.getElementById('monthlyBurn').value || state.cash.monthlyBurn || 1;
+
+  let score = 0;
+  score += Math.max(0, (1-concentration))*30; // diversification, 30 pts
+  score += Math.min(1, weeks/26)*35; // runway, 35 pts
+  score += Math.min(1, investTotal/(burn*12))*20; // investment cushion, 20pts
+  const goalsFunded = state.goals.length? state.goals.filter(g=>g.target && g.saved/g.target>=1).length/state.goals.length : 0;
+  score += goalsFunded*15; // goals, 15 pts
+  score = Math.round(Math.min(100,score));
+
+  document.getElementById('scoreNum').textContent = score;
+  const circumference = 2*Math.PI*46;
+  const offset = circumference*(1-score/100);
+  document.getElementById('scoreRing').style.strokeDashoffset = offset;
+  let sub, color;
+  if(score>=75){sub='Strong footing — diversified income and healthy runway.'; color='#5fae7a';}
+  else if(score>=50){sub='Solid base with room to build more runway or diversify.'; color='#c9a24b';}
+  else {sub='Focus on runway and income diversification first.'; color='#d4694f';}
+  document.getElementById('scoreSub').textContent = sub;
+  document.getElementById('scoreRing').setAttribute('stroke', color);
+  return score;
+}
+
+function renderOverview(){
+  const cards = document.getElementById('overviewCards');
+  const totalIncome = state.income.reduce((s,r)=>s+(+r.amount||0),0);
+  const burn = +document.getElementById('monthlyBurn').value || state.cash.monthlyBurn || 0;
+  const surplus = totalIncome - burn;
+  const weeks = calcRunwaySilent();
+  const investTotal = state.investments.reduce((s,r)=>s+(+r.value||0),0);
+  cards.innerHTML = `
+    <div class="card"><h3>Monthly income</h3><div class="kpi">${fmt(totalIncome)}</div><div class="trend ${surplus>=0?'up':'down'}">${surplus>=0?'▲':'▼'} ${fmt(Math.abs(surplus))} ${surplus>=0?'surplus':'deficit'}/mo</div></div>
+    <div class="card"><h3>Runway</h3><div class="kpi">${weeks.toFixed(1)} wks</div><div class="muted">at current burn rate</div></div>
+    <div class="card"><h3>Portfolio value</h3><div class="kpi">${fmt(investTotal)}</div><div class="muted">across ${state.investments.length} holdings</div></div>
+    <div class="card"><h3>Active income streams</h3><div class="kpi">${state.income.length}</div><div class="muted">${state.income.filter(r=>r.reliability==='steady').length} steady, ${state.income.filter(r=>r.reliability==='variable').length} variable</div></div>
+  `;
+}
+
+/* ---------------- RECALC ALL ---------------- */
+function recalcAll(){
+  calcRunway();
+  calcSavings();
+  computeHealthScore();
+  renderOverview();
+  generateInsights();
+}
+
+/* ---------------- RESET ---------------- */
+document.getElementById('resetAll').onclick = ()=>{
+  if(confirm('This clears all locally saved data and restores the sample dashboard. Continue?')){
+    state = JSON.parse(JSON.stringify(DEFAULT_STATE));
+    save();
+    document.getElementById('cashOnHand').value = state.cash.cashOnHand;
+    document.getElementById('monthlyBurn').value = state.cash.monthlyBurn;
+    document.getElementById('taxRate').value = state.cash.taxRate;
+    document.getElementById('efMonths').value = state.cash.efMonths;
+    initAll();
+  }
+};
+
+/* ---------------- INIT ---------------- */
+function initAll(){
+  document.getElementById('cashOnHand').value = state.cash.cashOnHand;
+  document.getElementById('monthlyBurn').value = state.cash.monthlyBurn;
+  document.getElementById('taxRate').value = state.cash.taxRate;
+  document.getElementById('efMonths').value = state.cash.efMonths;
+  renderIncome();
+  renderExpenses();
+  renderInvestments();
+  renderGoals();
+  renderChecklist();
+  recalcAll();
+}
+initAll();
+
+})();
+</script>
+</body>
+</html>
