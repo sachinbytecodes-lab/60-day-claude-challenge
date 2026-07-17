@@ -228,53 +228,9 @@ Dashboard
 
 # 📸 Screenshots
 
-## Home Screen
-
-> Add screenshot here
-
-```
-screenshots/home.png
-```
-
----
-
-## Upload Section
-
-> Add screenshot here
-
-```
-screenshots/upload.png
-```
-
----
-
-## AI Analysis
-
-> Add screenshot here
-
-```
-screenshots/analysis.png
-```
-
----
-
-## Dashboard
-
-> Add screenshot here
-
-```
-screenshots/dashboard.png
-```
-
----
-
-## Final Report
-
-> Add screenshot here
-
-```
-screenshots/report.png
-```
+<p align="center">
+  <img src="dashboard.png" alt="Content Intelligence Studio" width="100%">
+</p>
 
 ---
 
