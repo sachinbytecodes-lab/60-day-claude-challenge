@@ -243,7 +243,7 @@ Deliverables created during the planning phase include:
 
 ## Pitch Deck
 
-<img src=".pitch.png"/>
+<img src="pitch.png"/>
 
 ---
 
