@@ -221,6 +221,13 @@ These documents make the project **implementation-ready**.
 
 ---
 
+## Project Repository
+
+https://github.com/sachinbytecodes-lab/ai-job-fit-matcher.git
+
+
+---
+
 # 📅 Challenge Progress
 
 | Day | Status | Description |
