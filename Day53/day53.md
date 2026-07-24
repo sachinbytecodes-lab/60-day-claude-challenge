@@ -234,27 +234,27 @@ Generated:
 
 # 📸 Project Screenshots
 
-### Landing Page
+## 🏠 Landing Page
 
-> Add Screenshot
-
----
-
-### Google Authentication
-
-> Add Screenshot
+<p align="center">
+  <img src="landing-page.png" alt="Landing Page" width="100%">
+</p>
 
 ---
 
-### Dashboard
+## 🔐 Google Authentication
 
-> Add Screenshot
+<p align="center">
+  <img src="google-auth.png" alt="Google Authentication" width="100%">
+</p>
 
 ---
 
-### Running Project
+## 📊 Dashboard
 
-> Add Screenshot
+<p align="center">
+  <img src="dashboard.png" alt="Dashboard" width="100%">
+</p>
 
 ---
 
