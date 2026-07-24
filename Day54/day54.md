@@ -286,7 +286,7 @@ Built using modern Full Stack technologies with production-ready architecture.
 
 ## 📄 PDF Resume Parsing
 
-<img src="./screenshots/pdf-parsing.png" alt="PDF Parsing" width="900"/>
+<img src="pdf-parsing.png" alt="PDF Parsing" width="900"/>
 
 </div>
 
