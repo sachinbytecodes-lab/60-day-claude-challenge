@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🚀 AI Job-Fit Matcher
+# 🚀 AI Job-Fit Matcher 
 
 ### AI-Powered Resume Analysis & ATS Compatibility Platform
 
