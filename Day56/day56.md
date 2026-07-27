@@ -2,7 +2,12 @@
   
 # 🚀 AI Job-Fit Matcher
 <p align="center">
-<img src="banner.png" width="80%" height="40%">
+  <img
+    src="banner.png"
+    alt="AI Job-Fit Matcher Banner"
+    width="900"
+    height="950"
+  />
 </p>
 
 ### AI-Powered Resume Analysis & ATS Compatibility Platform
