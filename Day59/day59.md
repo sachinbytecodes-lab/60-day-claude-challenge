@@ -693,11 +693,45 @@ The deployed production application uses encrypted environment variables configu
 
 ---
 
-# 📸 Application Walkthrough
+# 📸 Application Screenshots
 
-Below is the complete user journey through the application.
+## 🏠 Landing Page
+
+The landing page introduces the platform and allows users to start their AI-powered resume analysis with secure Google authentication.
+
+<p align="center">
+  <img src="home.png" alt="Landing Page" width="100%">
+</p>
 
 ---
+
+## 📊 Dashboard
+
+After signing in, users can view all previous resume analyses, ATS scores, and job-fit percentages from a centralized dashboard.
+
+<p align="center">
+  <img src="dashboard.png" alt="Dashboard" width="100%">
+</p>
+
+---
+
+## 📄 New Job-Fit Analysis
+
+Users can upload a resume (PDF/DOCX), paste a job description, and initiate AI-powered analysis with a single click.
+
+<p align="center">
+  <img src="new-analysis.png" alt="New Analysis" width="100%">
+</p>
+
+---
+
+## 🤖 AI Analysis Results
+
+The AI-generated report includes Job-Fit Score, ATS Compatibility Score, Matching Skills, Missing Skills, and personalized recommendations to improve the resume.
+
+<p align="center">
+  <img src="results.png" alt="Analysis Results" width="100%">
+</p>
 
 ---
 
