@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>60-Day Claude AI Challenge — Journey to AI Job-Fit Matcher</title>
+<style>
+  :root {
+    --ink: #14181f;
+    --paper: #f6f3ec;
+    --accent: #2f5c8a;
+    --accent-warm: #c76b3f;
+    --line: #d8d2c4;
+    --muted: #6b6558;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Georgia', 'Iowan Old Style', serif;
+    padding: 48px 20px 80px;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; }
+  header { text-align: center; margin-bottom: 56px; }
+  .eyebrow {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-size: 12px;
+    color: var(--accent-warm);
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  h1 {
+    font-size: 40px;
+    margin: 0 0 12px;
+    line-height: 1.15;
+  }
+  .subtitle {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: var(--muted);
+    font-size: 15px;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .spine {
+    position: relative;
+    margin: 0 auto;
+    padding-left: 32px;
+    border-left: 2px solid var(--line);
+  }
+  .stage {
+    position: relative;
+    padding: 0 0 44px 24px;
+  }
+  .stage::before {
+    content: '';
+    position: absolute;
+    left: -41px;
+    top: 4px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 3px solid var(--paper);
+    outline: 2px solid var(--accent);
+  }
+  .stage.final::before {
+    background: var(--accent-warm);
+    outline-color: var(--accent-warm);
+    width: 18px;
+    height: 18px;
+    left: -43px;
+    top: 0;
+  }
+  .stage-label {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .stage.final .stage-label { color: var(--accent-warm); }
+  .stage h2 {
+    font-size: 21px;
+    margin: 0 0 8px;
+  }
+  .stage p {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: #383429;
+    margin: 0;
+    max-width: 620px;
+  }
+  .capstone-box {
+    margin-top: 8px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--accent-warm);
+    border-radius: 6px;
+    padding: 22px 24px;
+  }
+  .capstone-box h3 {
+    font-size: 17px;
+    margin: 0 0 10px;
+  }
+  .capstone-box p {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #383429;
+    margin: 0 0 10px;
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .tag {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11.5px;
+    background: #eef2f6;
+    color: var(--accent);
+    padding: 5px 11px;
+    border-radius: 20px;
+    font-weight: 600;
+  }
+  footer {
+    text-align: center;
+    margin-top: 60px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+  @media print {
+    body { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">AB Talks — 60-Day Claude AI Challenge</div>
+    <h1>From First Prompt to Production App</h1>
+    <p class="subtitle">A 60-day arc of AI fundamentals, prompt engineering, and product thinking — culminating in a fully shipped capstone: AI Job-Fit Matcher.</p>
+  </header>
+
+  <div class="spine">
+    <div class="stage">
+      <div class="stage-label">Weeks 1–2</div>
+      <h2>AI Foundations &amp; Effective Prompting</h2>
+      <p>Built the core vocabulary: how large language models reason, how to write clear and specific prompts, and how small wording changes reshape output quality — the groundwork every later skill depended on.</p>
+    </div>
+
+    <div class="stage">
+      <div class="stage-label">Weeks 3–4</div>
+      <h2>Reasoning &amp; Research Workflows</h2>
+      <p>Moved from single-shot prompts to structured, multi-step reasoning — using AI to research, compare, and synthesize rather than just answer, and learning to verify rather than blindly trust output.</p>
+    </div>
+
+    <div class="stage">
+      <div class="stage-label">Weeks 5–6</div>
+      <h2>Automation &amp; Product Thinking</h2>
+      <p>Shifted from "using AI to answer questions" to "using AI to build things" — automating repetitive workflows and starting to think in terms of users, requirements, and shippable scope, not just clever prompts.</p>
+    </div>
+
+    <div class="stage">
+      <div class="stage-label">Weeks 7–8</div>
+      <h2>Increasingly Sophisticated AI Projects</h2>
+      <p>Projects grew from isolated scripts into real applications — introducing multimodal AI (text, files, images) and knowledge systems that persist and retrieve information, not just generate it once.</p>
+    </div>
+
+    <div class="stage">
+      <div class="stage-label">Week 9</div>
+      <h2>Autonomous Agents &amp; Multi-Agent Collaboration</h2>
+      <p>Explored agentic architectures — systems that plan, act, and adapt with less step-by-step hand-holding — and how multiple specialized agents can collaborate on a single larger goal.</p>
+    </div>
+
+    <div class="stage final">
+      <div class="stage-label">Days 51–60 — The Capstone</div>
+      <h2>AI Job-Fit Matcher: Every Skill, One Shipped Product</h2>
+      <div class="capstone-box">
+        <h3>The full arc, converged</h3>
+        <p>A 10-day sprint that used every prior skill in service of one real product: architecture design before code (Day 2), AI-integrated prompt engineering with structured output (Day 5), production debugging and dependency management (Days 4–7), security/accessibility/performance review as a discipline (Day 8), and professional documentation and release readiness (Day 9) — landing on a live, working, publicly shareable v1.0.0.</p>
+        <div class="tags">
+          <span class="tag">Next.js 16</span>
+          <span class="tag">Google OAuth</span>
+          <span class="tag">MongoDB Atlas</span>
+          <span class="tag">Gemini API</span>
+          <span class="tag">Deployed on Vercel</span>
+          <span class="tag">Live in Production</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Built with Claude · AB Talks 60-Day Claude AI Challenge · Capstone: AI Job-Fit Matcher
+  </footer>
+</div>
+</body>
+</html>
